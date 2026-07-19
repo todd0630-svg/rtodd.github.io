@@ -1,191 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TokenHaven Media Hub | Ryan Todd, M.S.</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#0B110E',
-                            charcoal: '#161F1B',
-                            emerald: '#1E3F20',
-                            accent: '#4ADE80',
-                            text: '#E2E8F0'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0B110E; color: #E2E8F0; }
-    </style>
-<!-- Lucide Icons Core Script -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="antialiased flex flex-col min-h-screen">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TokenHaven | Media Hub</title>
+  <style>
+    /* --- Shared Navbar & Base Layout (Identical for Consistency) --- */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    .navbar {
+      background-color: #1a1a1a;
+      border-bottom: 1px solid #2d2d2d;
+      padding: 1rem 2rem;
+      position: relative;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-category {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .category-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888888;
+      border-right: 1px solid #444444;
+      padding-right: 0.5rem;
+      margin-right: 0.25rem;
+    }
+    .nav-item {
+      color: #cccccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .nav-item:hover, .nav-item.active {
+      color: #ffffff;
+    }
+    .menu-toggle, .hamburger-label {
+      display: none;
+    }
 
-    <!-- NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full z-40 bg-brand-dark/95 border-b border-white/10 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex flex-col">
-                <a href="index.html" class="text-xl font-bold tracking-tight text-white hover:text-brand-accent transition">RYAN TODD, M.S.</a>
-                <span class="text-xs tracking-widest text-brand-accent uppercase font-semibold">Subject Matter Expert</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
-                <a href="pillars.html" class="hover:text-brand-accent transition">Consultation Pillars</a>
-                <a href="media-hub.html" class="text-brand-accent font-semibold transition">Media Hub</a>
-        
-                    <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- MAIN MEDIA HUB -->
-    <main class="pt-32 pb-20 flex-grow">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-3 block">Publications & Broadcasting</span>
-                <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">TokenHaven Media Hub</h1>
-                <p class="text-slate-400">Direct links and analytical summaries of our scientific publications, editorial feeds, commentary networks, and streaming archives.</p>
-            </div>
-
-            <!-- Subsections Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Subsection 1: HighRants Podcast -->
-                <div class="bg-brand-charcoal/30 border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-emerald-500/30 transition duration-300">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-[#1DB954]/10 text-[#1DB954] rounded-xl flex items-center justify-center border border-[#1DB954]/20">
-                                <i data-lucide="mic"></i>
-                            </div>
-                            <span class="text-[10px] uppercase font-bold bg-[#1DB954]/20 text-[#1DB954] tracking-widest px-2 py-1 rounded">Spotify Broadcast</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3">HighRants Podcast</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Raw, unfiltered operational commentary mixed with heavy scientific analysis. Exploring the absolute bleeding-edge of legal cannabis matrices and corporate maneuvering.
-                        </p>
-                    </div>
-                    <a href="https://open.spotify.com/show/1GNkMNkas8x9SROFkCxBtB" target="_blank" class="w-full text-center py-3 bg-[#1DB954] text-black font-bold text-sm rounded-lg hover:bg-[#1ED760] transition duration-200 flex items-center justify-center gap-2">
-                        Listen on Spotify <i data-lucide="external-link" class="w-4 h-4"></i>
-                    </a>
-                </div>
-
-                <!-- Subsection 2: TokenHaven Substack -->
-                <div class="bg-brand-charcoal/30 border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-orange-500/30 transition duration-300">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-[#FF5722]/10 text-[#FF5722] rounded-xl flex items-center justify-center border border-[#FF5722]/20">
-                                <i data-lucide="book-open"></i>
-                            </div>
-                            <span class="text-[10px] uppercase font-bold bg-[#FF5722]/20 text-[#FF5722] tracking-widest px-2 py-1 rounded">Deep-Dive Journal</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3">TokenHaven Substack</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            The primary node for long-form clinical breakdowns, peer-reviewed study breakdowns, and high-level analytical industry briefings delivered straight to executives.
-                        </p>
-                    </div>
-                    <a href="https://tokenhaven.substack.com/" target="_blank" class="w-full text-center py-3 bg-[#FF5722] text-white font-bold text-sm rounded-lg hover:bg-[#FF6A3D] transition duration-200 flex items-center justify-center gap-2">
-                        Read Intel Reports <i data-lucide="external-link" class="w-4 h-4"></i>
-                    </a>
-                </div>
-
-                <!-- Subsection 3: TokenHaven YouTube -->
-                <div class="bg-brand-charcoal/30 border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-red-500/30 transition duration-300">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-[#FF0000]/10 text-[#FF0000] rounded-xl flex items-center justify-center border border-[#FF0000]/20">
-                                <i data-lucide="youtube"></i>
-                            </div>
-                            <span class="text-[10px] uppercase font-bold bg-[#FF0000]/20 text-[#FF0000] tracking-widest px-2 py-1 rounded">Video Analysis</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3">YouTube Channel</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Produced editorial deep dives, regulatory update videos, and comprehensive breakdowns of clinical trends in the commercial medical landscape.
-                        </p>
-                    </div>
-                    <a href="https://www.youtube.com/@TokenHaven" target="_blank" class="w-full text-center py-3 bg-[#FF0000] text-white font-bold text-sm rounded-lg hover:bg-[#CC0000] transition duration-200 flex items-center justify-center gap-2">
-                        Watch Channel <i data-lucide="youtube" class="w-4 h-4"></i>
-                    </a>
-                </div>
-
-                <!-- Subsection 4: Kick VODs -->
-                <div class="bg-brand-charcoal/30 border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-green-500/30 transition duration-300 md:col-span-1 lg:col-span-1">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-[#53FC18]/10 text-[#53FC18] rounded-xl flex items-center justify-center border border-[#53FC18]/20">
-                                <i data-lucide="clapperboard"></i>
-                            </div>
-                            <span class="text-[10px] uppercase font-bold bg-[#53FC18]/20 text-[#53FC18] tracking-widest px-2 py-1 rounded">Stream Records</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Kick Stream VODs</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Unedited stream logs, raw structural breakdowns, interactive legal asset evaluations, and real-time community dynamic interactive recordings.
-                        </p>
-                    </div>
-                    <a href="https://kick.com/tokenhaven/videos" target="_blank" class="w-full text-center py-3 bg-[#53FC18] text-black font-bold text-sm rounded-lg hover:bg-[#46d614] transition duration-200 flex items-center justify-center gap-2">
-                        Review Broadcast VODs <i data-lucide="play" class="w-4 h-4"></i>
-                    </a>
-                </div>
-
-                <!-- Subsection 5: TokenHaven TikTok -->
-                <div class="bg-brand-charcoal/30 border border-white/10 p-8 rounded-2xl flex flex-col justify-between hover:border-cyan-500/30 transition duration-300 md:col-span-2 lg:col-span-2">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-12 h-12 bg-[#00f2fe]/10 text-[#00f2fe] rounded-xl flex items-center justify-center border border-[#00f2fe]/20">
-                                <i data-lucide="smartphone"></i>
-                            </div>
-                            <span class="text-[10px] uppercase font-bold bg-[#00f2fe]/20 text-[#00f2fe] tracking-widest px-2 py-1 rounded">Micro Content</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3">TikTok Architecture</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                            Fast-paced, high-impact clinical myth-busting and regulatory quick-takes structured specifically for rapid reach and mainstream consumer science alignment.
-                        </p>
-                    </div>
-                    <a href="https://www.tiktok.com/@tokenhaven" target="_blank" class="w-full text-center py-3 bg-gradient-to-r from-[#ff0050] to-[#00f2fe] text-black font-bold text-sm rounded-lg hover:opacity-90 transition duration-200 flex items-center justify-center gap-2">
-                        Access Feed <i data-lucide="external-link" class="w-4 h-4"></i>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </main>
-
-   <footer style="font-family: Arial, sans-serif; text-align: center; padding: 20px 10px; margin-top: 40px; border-top: 1px solid #e0e0e0; background-color: #fcfcfc;">
+    /* --- Custom Page Elements --- */
+    .main-content {
+      max-width: 1000px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    h1 {
+      color: #ffffff;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #2d2d2d;
+      padding-bottom: 0.5rem;
+    }
     
-    <!-- FDA & Health Tracking Disclaimer -->
-    <div style="font-size: 0.75rem; line-height: 1.5; color: #666; max-width: 800px; margin: 0 auto 20px auto; text-align: justify; padding: 0 15px;">
-        <p style="margin: 0;"><strong>Federal Disclaimer:</strong> The information provided by Dank-Bank is for educational, personal tracking, and informational purposes only and does not constitute medical or legal advice. These statements have not been evaluated by the Food and Drug Administration (FDA). This platform is not intended to diagnose, treat, cure, or prevent any disease. Users should consult a qualified healthcare professional before making any changes to their wellness regimen.</p>
-    </div>
+    /* Media Showcase Layout grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .media-card {
+      background-color: #1a1a1a;
+      border: 1px solid #2d2d2d;
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+    .media-card:hover {
+      transform: translateY(-4px);
+      border-color: #444444;
+    }
+    .media-card h3 {
+      color: #ffffff;
+      margin-top: 0;
+    }
 
-    <!-- Uniform Navigation Links -->
-    <nav style="margin-bottom: 15px; font-size: 0.85rem; font-weight: bold;">
-        <a href="index.html" style="color: #333; text-decoration: none; padding: 0 10px;">Home</a> | 
-        <a href="pillars.html" style="color: #333; text-decoration: none; padding: 0 10px;">Pillars</a> | 
-        <a href="media-hub.html" style="color: #333; text-decoration: none; padding: 0 10px;">Media Hub</a> | 
-       
+    /* Mobile Breakpoint logic */
+    @media (max-width: 768px) {
+      .hamburger-label { display: flex; flex-direction: column; justify-content: space-between; width: 24px; height: 18px; cursor: pointer; }
+      .hamburger-label span { display: block; height: 2px; width: 100%; background-color: #ffffff; border-radius: 2px; transition: all 0.3s ease; }
+      .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #1a1a1a; flex-direction: column; padding: 1.5rem; box-sizing: border-box; border-top: 1px solid #2d2d2d; }
+      .nav-category { flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.5rem; width: 100%; }
+      .category-title { border-right: none; border-bottom: 1px solid #333333; width: 100%; padding-bottom: 0.25rem; margin-bottom: 0.25rem; }
+      .nav-item { padding-left: 0.5rem; font-size: 1.1rem; width: 100%; }
+      .menu-toggle:checked ~ .nav-menu { display: flex; }
+      .menu-toggle:checked ~ .hamburger-label span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .menu-toggle:checked ~ .hamburger-label span:nth-child(2) { opacity: 0; }
+      .menu-toggle:checked ~ .hamburger-label span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    }
+  </style>
+</head>
+<body>
 
-    <!-- Uniform Legal & Copyright Links -->
-    <div style="font-size: 0.8rem; color: #888; line-height: 1.6;">
-        <p style="margin: 0;">© 2026 Dank-Bank. All rights reserved.</p>
-        <p style="margin: 5px 0 0 0;">
-            <a href="privacy.html" style="color: #666; text-decoration: underline; padding: 0 5px;">Privacy Policy</a> | 
-            <a href="terms.html" style="color: #666; text-decoration: underline; padding: 0 5px;">Terms & Conditions</a>
-        </p>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">TokenHaven</a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger-label">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <div class="nav-menu">
+        <div class="nav-category">
+          <span class="category-title">Explore</span>
+          <a href="index.html" class="nav-item">Home</a>
+          <a href="media.html" class="nav-item active">Media Hub</a>
+          <a href="pillars.html" class="nav-item">Pillars</a>
+        </div>
+        <div class="nav-category">
+          <span class="category-title">Showcase</span>
+          <a href="#" class="nav-item">Custom Mints</a>
+          <a href="#" class="nav-item">Design Lab</a>
+        </div>
+      </div>
     </div>
-</footer>
-<!-- Trigger Lucide to render all symbols -->
-    <script>lucide.createIcons();</script>
+  </nav>
+
+  <main class="main-content">
+    <h1>Media Hub</h1>
+    <div class="media-grid">
+      <div class="media-card">
+        <h3>Production Concepts</h3>
+        <p>Visual assets, dynamic showcase materials, and media components outlining active brand lines.</p>
+      </div>
+      <div class="media-card">
+        <h3>Design Frameworks</h3>
+        <p>Documentation displays and 3D modeling wireframes optimized for physical asset generation.</p>
+      </div>
+    </div>
+  </main>
+
 </body>
-
 </html>

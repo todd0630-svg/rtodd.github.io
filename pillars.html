@@ -1,169 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultation Pillars | Ryan Todd, M.S.</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#0B110E',
-                            charcoal: '#161F1B',
-                            emerald: '#1E3F20',
-                            accent: '#4ADE80',
-                            text: '#E2E8F0'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0B110E; color: #E2E8F0; }
-    </style>
-<!-- Lucide Icons Core Script -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="antialiased flex flex-col min-h-screen">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TokenHaven | Pillars</title>
+  <style>
+    /* --- Shared Navbar & Base Layout (Identical for Consistency) --- */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    .navbar {
+      background-color: #1a1a1a;
+      border-bottom: 1px solid #2d2d2d;
+      padding: 1rem 2rem;
+      position: relative;
+      z-index: 1000;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-category {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .category-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888888;
+      border-right: 1px solid #444444;
+      padding-right: 0.5rem;
+      margin-right: 0.25rem;
+    }
+    .nav-item {
+      color: #cccccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .nav-item:hover, .nav-item.active {
+      color: #ffffff;
+    }
+    .menu-toggle, .hamburger-label {
+      display: none;
+    }
 
-    <!-- NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full z-40 bg-brand-dark/95 border-b border-white/10 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex flex-col">
-                <a href="index.html" class="text-xl font-bold tracking-tight text-white hover:text-brand-accent transition">RYAN TODD, M.S.</a>
-                <span class="text-xs tracking-widest text-brand-accent uppercase font-semibold">Subject Matter Expert</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
-                <a href="pillars.html" class="text-brand-accent font-semibold transition">Consultation Pillars</a>
-                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
-                                    <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- MAIN BODY CONTENT -->
-    <main class="pt-32 pb-20 flex-grow">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-3 block">Corporate Advisory</span>
-                <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Strategic Pillars</h1>
-                <p class="text-slate-400">Scientific analysis, operational systems construction, and licensing blueprints optimized to protect margins and secure compliance.</p>
-            </div>
-
-            <!-- Pillars Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Pillar 1 -->
-                <div class="bg-brand-charcoal/40 p-10 rounded-2xl border border-white/10 group">
-                    <div class="w-14 h-14 rounded-xl bg-brand-emerald/50 border border-brand-accent/20 flex items-center justify-center mb-6 text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-dark transition duration-300">
-                        <i data-lucide="scale" class="w-7 h-7"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-white mb-4">Science & Regulation</h2>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Navigating state and federal compliance requires extreme scientific accuracy. I deliver rigorous administrative and physical operational guidelines built to survive strict regulatory scrutiny.
-                    </p>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Standard Operating Procedures (SOPs)</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Legislative & Regulatory Drafting</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Audit Readiness & Protocol Creation</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Clinical Trial Design & Science Education</li>
-                    </ul>
-                </div>
-
-                <!-- Pillar 2 -->
-                <div class="bg-brand-charcoal/40 p-10 rounded-2xl border border-white/10 group">
-                    <div class="w-14 h-14 rounded-xl bg-brand-emerald/50 border border-brand-accent/20 flex items-center justify-center mb-6 text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-dark transition duration-300">
-                        <i data-lucide="shuffle" class="w-7 h-7"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-white mb-4">Supply Chain & Operations</h2>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Scale requires logistical design. I consult on vertically integrated supply systems, cold chain networks, and secure physical-flow optimization.
-                    </p>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Cultivation & Production Optimization</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Upstream and Downstream Distribution Logistics</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Cold Chain Delivery Systems</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> End-to-End Enterprise Resource Modeling</li>
-                    </ul>
-                </div>
-
-                <!-- Pillar 3 -->
-                <div class="bg-brand-charcoal/40 p-10 rounded-2xl border border-white/10 group">
-                    <div class="w-14 h-14 rounded-xl bg-brand-emerald/50 border border-brand-accent/20 flex items-center justify-center mb-6 text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-dark transition duration-300">
-                        <i data-lucide="sparkles" class="w-7 h-7"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-white mb-4">Brand, IP, & Launches</h2>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Rapid market penetration requires scientific design. I specialize in fast-tracked product modeling and structured licensing matrices.
-                    </p>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Multi-State Licensing Frameworks</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Rapid MVP Prototype Construction & R&D</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Technical Compliance Proofing</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> B2B Brand Integrity Strategies</li>
-                    </ul>
-                </div>
-
-                <!-- Pillar 4 -->
-               <!-- Pillar 4 Updated with AI Proficiency -->
-                <div class="bg-brand-charcoal/40 p-10 rounded-2xl border border-white/10 group">
-                    <div class="w-14 h-14 rounded-xl bg-brand-emerald/50 border border-brand-accent/20 flex items-center justify-center mb-6 text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-dark transition duration-300">
-                        <i data-lucide="trending-up" class="w-7 h-7"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-white mb-4">Sales & Corporate Strategy</h2>
-                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Empowering executives with elite corporate positioning, boardroom-level execution execution, and cutting-edge operational frameworks.
-                    </p>
-                    <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> **Enterprise AI Integration & Workflow Automation**</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Pharmaceutical Sales Strategy Integration</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Board of Director Operations Advisory</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Specialized Keynote Speaking</li>
-                    </ul>
-                </div>
-
-            <!-- Call to action block -->
-            <div class="mt-16 bg-brand-emerald/20 border border-brand-accent/20 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Need a custom technical roadmap?</h3>
-                    <p class="text-slate-400 text-sm">Let’s engineer a clinical framework built specifically for your jurisdiction's guidelines.</p>
-                </div>
-                                  Initiate Scope Analysis
-                </a>
-            </div>
-        </div>
-    </main>
-
-  <footer style="font-family: Arial, sans-serif; text-align: center; padding: 20px 10px; margin-top: 40px; border-top: 1px solid #e0e0e0; background-color: #fcfcfc;">
+    /* --- Custom Page Elements --- */
+    .main-content {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    h1 {
+      color: #ffffff;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
     
-    <!-- FDA & Health Tracking Disclaimer -->
-    <div style="font-size: 0.75rem; line-height: 1.5; color: #666; max-width: 800px; margin: 0 auto 20px auto; text-align: justify; padding: 0 15px;">
-        <p style="margin: 0;"><strong>Federal Disclaimer:</strong> The information provided by Dank-Bank is for educational, personal tracking, and informational purposes only and does not constitute medical or legal advice. These statements have not been evaluated by the Food and Drug Administration (FDA). This platform is not intended to diagnose, treat, cure, or prevent any disease. Users should consult a qualified healthcare professional before making any changes to their wellness regimen.</p>
-    </div>
+    .pillars-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .pillar-row {
+      background-color: #1a1a1a;
+      border-left: 4px solid #4a90e2;
+      padding: 1.5rem;
+      border-radius: 0 6px 6px 0;
+    }
+    .pillar-row h2 {
+      margin-top: 0;
+      color: #ffffff;
+      font-size: 1.4rem;
+    }
 
-    <!-- Uniform Navigation Links -->
-    <nav style="margin-bottom: 15px; font-size: 0.85rem; font-weight: bold;">
-        <a href="index.html" style="color: #333; text-decoration: none; padding: 0 10px;">Home</a> | 
-        <a href="pillars.html" style="color: #333; text-decoration: none; padding: 0 10px;">Pillars</a> | 
-        <a href="media-hub.html" style="color: #333; text-decoration: none; padding: 0 10px;">Media Hub</a> | 
-       
-    <!-- Uniform Legal & Copyright Links -->
-    <div style="font-size: 0.8rem; color: #888; line-height: 1.6;">
-        <p style="margin: 0;">© 2026 Dank-Bank. All rights reserved.</p>
-        <p style="margin: 5px 0 0 0;">
-            <a href="privacy.html" style="color: #666; text-decoration: underline; padding: 0 5px;">Privacy Policy</a> | 
-            <a href="terms.html" style="color: #666; text-decoration: underline; padding: 0 5px;">Terms & Conditions</a>
-        </p>
+    /* Mobile Breakpoint logic */
+    @media (max-width: 768px) {
+      .hamburger-label { display: flex; flex-direction: column; justify-content: space-between; width: 24px; height: 18px; cursor: pointer; }
+      .hamburger-label span { display: block; height: 2px; width: 100%; background-color: #ffffff; border-radius: 2px; transition: all 0.3s ease; }
+      .nav-menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #1a1a1a; flex-direction: column; padding: 1.5rem; box-sizing: border-box; border-top: 1px solid #2d2d2d; }
+      .nav-category { flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.5rem; width: 100%; }
+      .category-title { border-right: none; border-bottom: 1px solid #333333; width: 100%; padding-bottom: 0.25rem; margin-bottom: 0.25rem; }
+      .nav-item { padding-left: 0.5rem; font-size: 1.1rem; width: 100%; }
+      .menu-toggle:checked ~ .nav-menu { display: flex; }
+      .menu-toggle:checked ~ .hamburger-label span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .menu-toggle:checked ~ .hamburger-label span:nth-child(2) { opacity: 0; }
+      .menu-toggle:checked ~ .hamburger-label span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">TokenHaven</a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="hamburger-label">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <div class="nav-menu">
+        <div class="nav-category">
+          <span class="category-title">Explore</span>
+          <a href="index.html" class="nav-item">Home</a>
+          <a href="media.html" class="nav-item">Media Hub</a>
+          <a href="pillars.html" class="nav-item active">Pillars</a>
+        </div>
+        <div class="nav-category">
+          <span class="category-title">Showcase</span>
+          <a href="#" class="nav-item">Custom Mints</a>
+          <a href="#" class="nav-item">Design Lab</a>
+        </div>
+      </div>
     </div>
-</footer>
-<!-- Trigger Lucide to render all symbols -->
-    <script>lucide.createIcons();</script>
+  </nav>
+
+  <main class="main-content">
+    <h1>Core Foundation Pillars</h1>
+    <div class="pillars-container">
+      <div class="pillar-row">
+        <h2>Pillar I: Security & Stability</h2>
+        <p>Ensuring absolute protection across network interfaces, custom storage configurations, and baseline protocols.</p>
+      </div>
+      <div class="pillar-row" style="border-left-color: #2ecc71;">
+        <h2>Pillar II: Asset Design</h2>
+        <p>Delivering high-fidelity spatial models, 3D systems, and custom physical commodity rounds built to spec.</p>
+      </div>
+      <div class="pillar-row" style="border-left-color: #9b59b6;">
+        <h2>Pillar III: Ecosystem Scaling</h2>
+        <p>Structuring platform pipelines to smoothly expand across distributed media environments and marketplace endpoints.</p>
+      </div>
+    </div>
+  </main>
+
 </body>
 </html>
