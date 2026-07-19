@@ -29,13 +29,13 @@
         
         /* Pure CSS Mobile Menu Toggle Magic */
         #menu-toggle:checked ~ .nav-menu {
-            display: flex;
+            display: flex !important;
         }
         #menu-toggle:checked ~ label .hamburger-icon {
-            display: none;
+            display: none !important;
         }
         #menu-toggle:checked ~ label .close-icon {
-            display: block;
+            display: block !important;
         }
     </style>
     <!-- Lucide Icons Core Script -->
@@ -58,13 +58,13 @@
             <!-- Hidden Checkbox for Mobile Toggle -->
             <input type="checkbox" id="menu-toggle" class="hidden">
             
-            <!-- Hamburger Icon Label -->
-            <label for="menu-toggle" class="lg:hidden p-2 text-slate-400 hover:text-white cursor-pointer select-none">
+            <!-- Hamburger Icon Label (Visible on mobile/tablet, hidden on desktop) -->
+            <label for="menu-toggle" class="lg:hidden p-2 text-slate-400 hover:text-white cursor-pointer select-none z-50">
                 <i data-lucide="menu" class="hamburger-icon w-6 h-6 block"></i>
                 <i data-lucide="x" class="close-icon w-6 h-6 hidden"></i>
             </label>
 
-            <!-- Navigation Links (Responsive Desktop & Mobile) -->
+            <!-- Navigation Links (Responsive Desktop & Mobile Layout) -->
             <div class="nav-menu hidden absolute top-full left-0 w-full bg-brand-dark border-b border-white/5 p-6 flex-col gap-6 lg:static lg:border-none lg:p-0 lg:w-auto lg:flex lg:flex-row lg:items-center lg:gap-8">
                 <!-- Group 1: Main Platform -->
                 <div class="flex flex-col lg:flex-row lg:items-center gap-4 border-b border-white/5 pb-4 lg:border-none lg:pb-0">
