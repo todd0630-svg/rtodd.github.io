@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultation Pillars | Ryan Todd, M.S.</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -26,31 +26,68 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #0B110E; color: #E2E8F0; }
+        
+        /* Pure CSS Mobile Menu Toggle Magic */
+        #menu-toggle:checked ~ .nav-menu {
+            display: flex;
+        }
+        #menu-toggle:checked ~ label .hamburger-icon {
+            display: none;
+        }
+        #menu-toggle:checked ~ label .close-icon {
+            display: block;
+        }
     </style>
-<!-- Lucide Icons Core Script -->
+    <!-- Lucide Icons Core Script -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
 
     <!-- NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full z-40 bg-brand-dark/95 border-b border-white/10 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav class="fixed top-0 left-0 w-full bg-brand-dark/95 border-b border-white/5 backdrop-blur-md z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+            
+            <!-- Brand Logo / Name -->
             <div class="flex flex-col">
-                <a href="index.html" class="text-xl font-bold tracking-tight text-white hover:text-brand-accent transition">RYAN TODD, M.S.</a>
-                <span class="text-xs tracking-widest text-brand-accent uppercase font-semibold">Subject Matter Expert</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
-                <a href="pillars.html" class="text-brand-accent font-semibold transition">Consultation Pillars</a>
-                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
-                                    <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
+                <a href="index.html" class="text-xl font-bold tracking-tight text-white flex items-center gap-2 hover:text-brand-accent transition">
+                    <span class="w-2 h-2 bg-brand-accent rounded-full"></span> RYAN TODD, M.S.
                 </a>
+                <span class="text-[10px] tracking-widest text-brand-accent uppercase font-semibold">Subject Matter Expert</span>
             </div>
+
+            <!-- Hidden Checkbox for Mobile Toggle -->
+            <input type="checkbox" id="menu-toggle" class="hidden">
+            
+            <!-- Hamburger Icon Label -->
+            <label for="menu-toggle" class="lg:hidden p-2 text-slate-400 hover:text-white cursor-pointer select-none">
+                <i data-lucide="menu" class="hamburger-icon w-6 h-6 block"></i>
+                <i data-lucide="x" class="close-icon w-6 h-6 hidden"></i>
+            </label>
+
+            <!-- Navigation Links (Responsive Desktop & Mobile) -->
+            <div class="nav-menu hidden absolute top-full left-0 w-full bg-brand-dark border-b border-white/5 p-6 flex-col gap-6 lg:static lg:border-none lg:p-0 lg:w-auto lg:flex lg:flex-row lg:items-center lg:gap-8">
+                <!-- Group 1: Main Platform -->
+                <div class="flex flex-col lg:flex-row lg:items-center gap-4 border-b border-white/5 pb-4 lg:border-none lg:pb-0">
+                    <span class="text-xs uppercase tracking-widest text-slate-500 font-bold block lg:hidden mb-2">Platform</span>
+                    <a href="index.html" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition">Home</a>
+                    <a href="pillars.html" class="text-sm font-medium text-brand-accent font-semibold transition">Consultation Pillars</a>
+                    <a href="media-hub.html" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition">Media Hub</a>
+                </div>
+
+                <!-- Group 2: Action Link -->
+                <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+                    <span class="text-xs uppercase tracking-widest text-slate-500 font-bold block lg:hidden mb-2">Contact</span>
+                    <a href="mailto:contact@yourdomain.com" class="text-sm font-medium text-slate-300 hover:text-brand-accent transition flex items-center gap-2">
+                        <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
+                    </a>
+                </div>
+            </div>
+
         </div>
     </nav>
 
     <!-- MAIN BODY CONTENT -->
-    <main class="pt-32 pb-20 flex-grow">
+    <main class="pt-40 pb-20 flex-grow">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-3 block">Corporate Advisory</span>
@@ -112,58 +149,62 @@
                 </div>
 
                 <!-- Pillar 4 -->
-               <!-- Pillar 4 Updated with AI Proficiency -->
                 <div class="bg-brand-charcoal/40 p-10 rounded-2xl border border-white/10 group">
                     <div class="w-14 h-14 rounded-xl bg-brand-emerald/50 border border-brand-accent/20 flex items-center justify-center mb-6 text-brand-accent group-hover:bg-brand-accent group-hover:text-brand-dark transition duration-300">
                         <i data-lucide="trending-up" class="w-7 h-7"></i>
                     </div>
                     <h2 class="text-2xl font-bold text-white mb-4">Sales & Corporate Strategy</h2>
                     <p class="text-slate-400 text-sm mb-6 leading-relaxed">
-                        Empowering executives with elite corporate positioning, boardroom-level execution execution, and cutting-edge operational frameworks.
+                        Empowering executives with elite corporate positioning, boardroom-level execution, and cutting-edge operational frameworks.
                     </p>
                     <ul class="space-y-3 text-sm text-slate-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> **Enterprise AI Integration & Workflow Automation**</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> <strong>Enterprise AI Integration & Workflow Automation</strong></li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Pharmaceutical Sales Strategy Integration</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Board of Director Operations Advisory</li>
                         <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-accent"></i> Specialized Keynote Speaking</li>
                     </ul>
                 </div>
+            </div>
 
-            <!-- Call to action block -->
+            <!-- Call to Action Block -->
             <div class="mt-16 bg-brand-emerald/20 border border-brand-accent/20 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
                     <h3 class="text-xl font-bold text-white mb-2">Need a custom technical roadmap?</h3>
                     <p class="text-slate-400 text-sm">Let’s engineer a clinical framework built specifically for your jurisdiction's guidelines.</p>
                 </div>
-                                  Initiate Scope Analysis
+                <a href="mailto:contact@yourdomain.com" class="px-6 py-3 bg-brand-accent text-brand-dark font-bold text-sm rounded-xl hover:bg-white transition duration-200 shadow-lg flex items-center gap-2 whitespace-nowrap">
+                    Initiate Scope Analysis <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </a>
             </div>
         </div>
     </main>
 
-  <footer style="font-family: Arial, sans-serif; text-align: center; padding: 20px 10px; margin-top: 40px; border-top: 1px solid #e0e0e0; background-color: #fcfcfc;">
-    
-    <!-- FDA & Health Tracking Disclaimer -->
-    <div style="font-size: 0.75rem; line-height: 1.5; color: #666; max-width: 800px; margin: 0 auto 20px auto; text-align: justify; padding: 0 15px;">
-        <p style="margin: 0;"><strong>Federal Disclaimer:</strong> The information provided by Dank-Bank is for educational, personal tracking, and informational purposes only and does not constitute medical or legal advice. These statements have not been evaluated by the Food and Drug Administration (FDA). This platform is not intended to diagnose, treat, cure, or prevent any disease. Users should consult a qualified healthcare professional before making any changes to their wellness regimen.</p>
-    </div>
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark border-t border-white/5 py-12 px-6 mt-auto">
+        <!-- FDA & Health Tracking Disclaimer -->
+        <div class="max-w-4xl mx-auto text-xs text-slate-500 text-justify leading-relaxed mb-8 border border-white/5 bg-brand-charcoal/20 p-4 rounded-lg">
+            <p><strong>Federal Disclaimer:</strong> The information provided by Dank-Bank is for educational, personal tracking, and informational purposes only and does not constitute medical or legal advice. These statements have not been evaluated by the Food and Drug Administration (FDA). This platform is not intended to diagnose, treat, cure, or prevent any disease. Users should consult a qualified healthcare professional before making any changes to their wellness regimen.</p>
+        </div>
 
-    <!-- Uniform Navigation Links -->
-    <nav style="margin-bottom: 15px; font-size: 0.85rem; font-weight: bold;">
-        <a href="index.html" style="color: #333; text-decoration: none; padding: 0 10px;">Home</a> | 
-        <a href="pillars.html" style="color: #333; text-decoration: none; padding: 0 10px;">Pillars</a> | 
-        <a href="media-hub.html" style="color: #333; text-decoration: none; padding: 0 10px;">Media Hub</a> | 
-       
-    <!-- Uniform Legal & Copyright Links -->
-    <div style="font-size: 0.8rem; color: #888; line-height: 1.6;">
-        <p style="margin: 0;">© 2026 Dank-Bank. All rights reserved.</p>
-        <p style="margin: 5px 0 0 0;">
-            <a href="privacy.html" style="color: #666; text-decoration: underline; padding: 0 5px;">Privacy Policy</a> | 
-            <a href="terms.html" style="color: #666; text-decoration: underline; padding: 0 5px;">Terms & Conditions</a>
-        </p>
-    </div>
-</footer>
-<!-- Trigger Lucide to render all symbols -->
+        <!-- Uniform Navigation Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-400 mb-6">
+            <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+            <a href="pillars.html" class="hover:text-brand-accent transition">Pillars</a>
+            <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
+        </div>
+            
+        <!-- Uniform Legal & Copyright Links -->
+        <div class="text-center text-xs text-slate-600 space-y-2">
+            <p>© 2026 Dank-Bank. All rights reserved.</p>
+            <div class="flex justify-center gap-4">
+                <a href="privacy.html" class="hover:underline">Privacy Policy</a>
+                <span class="text-slate-800">|</span>
+                <a href="terms.html" class="hover:underline">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Trigger Lucide to render all symbols -->
     <script>lucide.createIcons();</script>
 </body>
 </html>
