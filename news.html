@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokenHaven News Outlet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B110E',
+                            charcoal: '#161F1B',
+                            emerald: '#1E3F20',
+                            accent: '#4ADE80',
+                            text: '#E2E8F0'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #050906; color: #E2E8F0; }
+        .glass-card { background: rgba(14, 23, 20, 0.75); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(18px); }
+        .ad-box { min-height: 180px; }
+        .video-card:hover { transform: translateY(-4px); }
+        .video-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    <nav class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-brand-dark/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between gap-6">
+            <a href="news.html" class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <span class="text-base font-black text-brand-dark">T</span>
+                </div>
+                <div>
+                    <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">TokenHaven</p>
+                    <p class="text-base font-semibold text-white">News Outlet</p>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
+                <a href="news.html" class="text-brand-accent font-semibold transition">News Outlet</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-6 space-y-16">
+            <section class="space-y-10">
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-3 rounded-full border border-brand-accent/25 bg-brand-charcoal/40 px-4 py-2 text-sm text-brand-accent">
+                        <i data-lucide="zap" class="w-4 h-4"></i> Live Kick & YouTube News
+                    </div>
+                    <div class="space-y-4">
+                        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">TokenHaven News Outlet</h1>
+                        <p class="max-w-3xl text-lg leading-8 text-slate-300">Live Kick streaming at the top, with YouTube videos playable directly on the page. The layout is now streamlined so your latest news is easy to watch and navigate.</p>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="glass-card rounded-3xl p-6">
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-3">Live Breaking News</p>
+                            <p class="text-sm text-slate-300">Top News Story is now a live Kick broadcast directly on the page.</p>
+                        </div>
+                        <div class="glass-card rounded-3xl p-6">
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-3">Inline Playback</p>
+                            <p class="text-sm text-slate-300">Newest videos and featured clips can be played directly in the embedded player without leaving the site.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-10">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-6 shadow-xl shadow-black/10">
+                    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Live Stream</p>
+                            <h2 class="text-3xl font-bold text-white">Top News Story</h2>
+                        </div>
+                        <div class="text-sm text-slate-400">Live feed from Kick.com/tokenhaven is now the primary top story.</div>
+                    </div>
+                    <div class="mt-8 rounded-[1.75rem] overflow-hidden border border-white/10 bg-black h-[420px]">
+                        <iframe id="kickLiveFrame" class="w-full h-full" src="https://kick.com/embed/channel/tokenhaven" title="TokenHaven Kick Live Feed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+                    <div class="space-y-6">
+                        <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">YouTube Player</p>
+                            <div class="rounded-[1.75rem] overflow-hidden border border-white/10 bg-black min-h-[320px]">
+                                <iframe id="youtubePlayer" class="w-full h-full" src="https://www.youtube.com/embed?listType=playlist&list=PLO3qZDKc0Wf3jhbXM9pALYIGt1kgbebhQ" title="TokenHaven YouTube Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <p class="mt-4 text-sm text-slate-300">Click a video below to play it directly on this page.</p>
+                        </div>
+                        <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">Newest Videos</p>
+                            <div id="newsGrid" class="grid gap-4"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Featured Clips</p>
+                                    <h3 class="text-xl font-semibold text-white">Watch clips inline</h3>
+                                </div>
+                                <a href="https://www.youtube.com/@TokenHaven/shorts" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Open Shorts Feed</a>
+                            </div>
+                            <div id="clipsGrid" class="grid gap-4"></div>
+                        </div>
+                        <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">Shorts & Clips</p>
+                            <p class="text-sm text-slate-300">For more short-form highlights, open the TokenHaven shorts feed or tap any clip above to watch it inline.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card rounded-[2rem] border border-white/10 p-6">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Need a custom video feed?</p>
+                        <h2 class="text-2xl font-bold text-white">Connect your playlist with the YouTube Data API</h2>
+                    </div>
+                    <a href="#howToUse" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-5 py-3 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">How to configure</a>
+                </div>
+                <div class="mt-6 rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">
+                    <p class="mb-3"><strong>Instructions:</strong> Add your YouTube API key and playlist ID to the script below. If you do not want to use the API, the featured iframe will still show the playlist stream when you replace <code>YOUR_PLAYLIST_ID_HERE</code> with the correct playlist ID.</p>
+                    <p class="leading-relaxed">The script will load the newest playlist items and render them inside the "Newest Videos" section automatically. Use the ad areas to place sponsor images or short promotional clips.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm">
+            <p class="mb-4">TokenHaven News Outlet — automatically sync your playlist with the latest video coverage.</p>
+            <p>© 2026 TokenHaven. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const API_KEY = 'AIzaSyCIzykQViEPjizTGCBFj9eRnCyE-M9-BNs';
+        const PLAYLIST_ID = 'PLO3qZDKc0Wf3jhbXM9pALYIGt1kgbebhQ';
+        const MAX_RESULTS = 6;
+        const KICK_CLIENT_ID = '01KZ6V27JPWQ2D9Q7D2CZNX727';
+        const KICK_CLIENT_SECRET = 'a7f2fd23a76e6e9fa52ed189d7c237d93003d732bba7885993b877a233734683';
+        const KICK_CHANNEL = 'tokenhaven';
+
+        const playlistStatus = document.getElementById('playlistStatus');
+        const newsGrid = document.getElementById('newsGrid');
+        const clipsGrid = document.getElementById('clipsGrid');
+        const youtubePlayer = document.getElementById('youtubePlayer');
+
+        function playVideo(videoId) {
+            if (!youtubePlayer) return;
+            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            const topOffset = youtubePlayer.getBoundingClientRect().top + window.scrollY - 120;
+            window.scrollTo({ top: topOffset, behavior: 'smooth' });
+        }
+
+        async function loadPlaylist() {
+            if (!API_KEY || API_KEY === 'YOUR_API_KEY_HERE' || !PLAYLIST_ID || PLAYLIST_ID === 'YOUR_PLAYLIST_ID_HERE') {
+                playlistStatus.textContent = 'Replace the placeholder values with your YouTube API key and playlist ID for live video loading.';
+                newsGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No API key or playlist ID provided. The embedded playlist will still work if you update the iframe source with your playlist ID.</div>`;
+                return;
+            }
+
+            const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${MAX_RESULTS}&playlistId=${PLAYLIST_ID}&key=${API_KEY}`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error?.message || 'Failed to fetch YouTube playlist.');
+                }
+                const data = await response.json();
+                const items = data.items || [];
+                if (!items.length) {
+                    playlistStatus.textContent = 'No videos were found in the playlist. Please verify your playlist ID.';
+                    return;
+                }
+
+                playlistStatus.textContent = `${items.length} newest videos loaded from your playlist.`;
+                if (youtubePlayer) {
+                    youtubePlayer.src = `https://www.youtube.com/embed/${items[0].snippet.resourceId.videoId}?autoplay=0&rel=0`;
+                }
+
+                const latestItems = items.slice(0, 6);
+                const featuredItems = items.slice(0, 4);
+
+                newsGrid.innerHTML = latestItems.map(item => {
+                    const videoId = item.snippet.resourceId.videoId;
+                    const title = item.snippet.title;
+                    const description = item.snippet.description || '';
+                    const thumb = item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url || '';
+                    return `
+                        <article class="video-card rounded-3xl border border-white/10 bg-brand-charcoal/90 overflow-hidden shadow-lg shadow-black/20">
+                            <a href="#" onclick="playVideo('${videoId}'); return false;" class="block">
+                                <img src="${thumb}" alt="${title}" class="h-44 w-full object-cover" />
+                            </a>
+                            <div class="p-4">
+                                <a href="#" onclick="playVideo('${videoId}'); return false;" class="text-sm font-semibold text-white hover:text-brand-accent transition">${title}</a>
+                                <p class="mt-2 text-xs leading-5 text-slate-400 overflow-hidden" style="max-height:3.6rem;">${description}</p>
+                            </div>
+                        </article>`;
+                }).join('');
+
+                clipsGrid.innerHTML = featuredItems.map(item => {
+                    const videoId = item.snippet.resourceId.videoId;
+                    const title = item.snippet.title;
+                    const thumb = item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url || '';
+                    return `
+                        <article class="video-card rounded-3xl border border-white/10 bg-brand-charcoal/90 overflow-hidden shadow-lg shadow-black/20">
+                            <a href="#" onclick="playVideo('${videoId}'); return false;" class="block">
+                                <img src="${thumb}" alt="${title}" class="h-40 w-full object-cover" />
+                            </a>
+                            <div class="p-4">
+                                <a href="#" onclick="playVideo('${videoId}'); return false;" class="text-sm font-semibold text-white hover:text-brand-accent transition">${title}</a>
+                            </div>
+                        </article>`;
+                }).join('');
+            } catch (error) {
+                playlistStatus.textContent = 'Unable to load playlist data. Check your API key, playlist ID, and browser console for details.';
+                newsGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">${error.message}</div>`;
+                console.error(error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadPlaylist);
+    </script>
+    <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm">
+            <nav class="mb-4 text-sm font-semibold text-slate-300">
+                <a href="index.html" class="hover:text-brand-accent transition px-2">Home</a>
+                <span class="text-slate-500">|</span>
+                <a href="pillars.html" class="hover:text-brand-accent transition px-2">Pillars</a>
+                <span class="text-slate-500">|</span>
+                <a href="media-hub.html" class="hover:text-brand-accent transition px-2">Media Hub</a>
+                <span class="text-slate-500">|</span>
+                <a href="news.html" class="text-brand-accent font-semibold transition px-2">News Outlet</a>
+            </nav>
+            <p class="text-sm">TokenHaven News Outlet — automatically sync your playlist with the latest video coverage.</p>
+            <p class="text-xs text-slate-500 mt-3">© 2026 TokenHaven. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
