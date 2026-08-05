@@ -44,14 +44,16 @@
                     <p class="text-base font-semibold text-white">News Outlet</p>
                 </div>
             </a>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-200">
                 <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+                <a href="pillars.html" class="hover:text-brand-accent transition">Pillars</a>
                 <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
-                <a href="news.html" class="text-brand-accent font-semibold transition">News Outlet</a>
+                <a href="shop.html" class="hover:text-brand-accent transition">Shop</a>
+                <a href="privacy.html" class="hover:text-brand-accent transition">Privacy</a>
+                <a href="terms.html" class="hover:text-brand-accent transition">Terms</a>
             </div>
         </div>
     </nav>
-
     <main class="pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-6 space-y-16">
             <section class="space-y-10">
@@ -124,17 +126,16 @@
                 </div>
             </section>
 
-            <section class="glass-card rounded-[2rem] border border-white/10 p-6">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Need a custom video feed?</p>
-                        <h2 class="text-2xl font-bold text-white">Connect your playlist with the YouTube Data API</h2>
+            <section class="space-y-6">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Cannabis + Hemp News</p>
+                            <h3 class="text-xl font-semibold text-white">Auto-updating industry headlines</h3>
+                        </div>
+                        <span class="text-sm text-slate-400">Powered by live search results for cannabis and hemp news.</span>
                     </div>
-                    <a href="#howToUse" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-5 py-3 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">How to configure</a>
-                </div>
-                <div class="mt-6 rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">
-                    <p class="mb-3"><strong>Instructions:</strong> Add your YouTube API key and playlist ID to the script below. If you do not want to use the API, the featured iframe will still show the playlist stream when you replace <code>YOUR_PLAYLIST_ID_HERE</code> with the correct playlist ID.</p>
-                    <p class="leading-relaxed">The script will load the newest playlist items and render them inside the "Newest Videos" section automatically. Use the ad areas to place sponsor images or short promotional clips.</p>
+                    <div id="newsFeedGrid" class="grid gap-4 lg:grid-cols-2"></div>
                 </div>
             </section>
         </div>
@@ -151,6 +152,7 @@
         const playlistStatus = document.getElementById('playlistStatus');
         const newsGrid = document.getElementById('newsGrid');
         const clipsGrid = document.getElementById('clipsGrid');
+        const newsFeedGrid = document.getElementById('newsFeedGrid');
         const youtubePlayer = document.getElementById('youtubePlayer');
 
         function playVideo(videoId) {
@@ -228,7 +230,46 @@
             }
         }
 
-        window.addEventListener('DOMContentLoaded', loadPlaylist);
+        async function loadNewsFeed() {
+            if (!newsFeedGrid) return;
+            const feedUrl = encodeURIComponent('https://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en');
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}&count=6`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch live news feed.');
+                }
+
+                const data = await response.json();
+                const items = data.items || [];
+                if (!items.length) {
+                    newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No cannabis news headlines were available at the moment.</div>`;
+                    return;
+                }
+
+                newsFeedGrid.innerHTML = items.slice(0, 6).map(item => {
+                    const published = new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    return `
+                        <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                            <a href="${item.link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${item.title}</a>
+                            <p class="mt-3 text-sm leading-6 text-slate-300">${item.description || 'Read the latest cannabis and hemp industry news.'}</p>
+                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
+                                <span>${item.author || 'Industry Feed'}</span>
+                                <span>${published}</span>
+                            </div>
+                        </article>`;
+                }).join('');
+            } catch (error) {
+                newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">Live news feed unavailable. ${error.message}</div>`;
+                console.error(error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPlaylist();
+            loadNewsFeed();
+        });
     </script>
     <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
         <div class="max-w-7xl mx-auto px-6 text-center text-sm">
@@ -240,6 +281,12 @@
                 <a href="media-hub.html" class="hover:text-brand-accent transition px-2">Media Hub</a>
                 <span class="text-slate-500">|</span>
                 <a href="news.html" class="text-brand-accent font-semibold transition px-2">News Outlet</a>
+                <span class="text-slate-500">|</span>
+                <a href="shop.html" class="hover:text-brand-accent transition px-2">Shop</a>
+                <span class="text-slate-500">|</span>
+                <a href="privacy.html" class="hover:text-brand-accent transition px-2">Privacy</a>
+                <span class="text-slate-500">|</span>
+                <a href="terms.html" class="hover:text-brand-accent transition px-2">Terms</a>
             </nav>
             <p class="text-sm">TokenHaven News Outlet — automatically sync your playlist with the latest video coverage.</p>
             <p class="text-xs text-slate-500 mt-3">© 2026 TokenHaven. All rights reserved.</p>

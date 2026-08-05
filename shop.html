@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop | TokenHaven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #020617; color: #e2e8f0; }
+        .bg-brand-dark { background-color: #07102d; }
+        .bg-brand-charcoal { background-color: rgba(15, 23, 42, 0.9); }
+        .text-brand-accent { color: #7dd3fc; }
+        .glass-card { background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(18px); }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    <nav class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-brand-dark/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between gap-6">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <span class="text-base font-black text-brand-dark">T</span>
+                </div>
+                <div>
+                    <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">TokenHaven</p>
+                    <p class="text-base font-semibold text-white">Shopping</p>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-200">
+                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+                <a href="pillars.html" class="hover:text-brand-accent transition">Pillars</a>
+                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
+                <a href="news.html" class="hover:text-brand-accent transition">News Outlet</a>
+                <a href="shop.html" class="hover:text-brand-accent transition">Shop</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-6 space-y-10">
+            <section class="space-y-6 text-center">
+                <div class="inline-flex items-center gap-3 rounded-full border border-brand-accent/25 bg-brand-charcoal/40 px-4 py-2 text-sm text-brand-accent">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Curated for the cannabis & hemp community
+                </div>
+                <div class="space-y-4">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">TokenHaven Shop</h1>
+                    <p class="mx-auto max-w-3xl text-lg leading-8 text-slate-300">Explore tools, apparel, and media designed for cannabis professionals, writers, and content creators. Every product is selected to support your news workflow and industry storytelling.</p>
+                </div>
+            </section>
+
+            <section class="grid gap-6 md:grid-cols-2">
+                <article class="glass-card rounded-3xl p-8 shadow-xl shadow-cyan-500/10">
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">Featured</p>
+                            <h2 class="mt-3 text-2xl font-semibold text-white">Branded Media Kits</h2>
+                        </div>
+                        <i data-lucide="coffee" class="w-10 h-10 text-brand-accent"></i>
+                    </div>
+                    <p class="text-slate-300">Launch your own video series and editorial channels with ready-made thumbnails, lower thirds, and campaign assets.</p>
+                </article>
+
+                <article class="glass-card rounded-3xl p-8 shadow-xl shadow-teal-500/10">
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">Essentials</p>
+                            <h2 class="mt-3 text-2xl font-semibold text-white">Research & Notes</h2>
+                        </div>
+                        <i data-lucide="book-open" class="w-10 h-10 text-brand-accent"></i>
+                    </div>
+                    <p class="text-slate-300">Premium notebooks, field journals, and reference bundles for tracking sources, regulations, and breaking news.</p>
+                </article>
+            </section>
+
+            <section class="grid gap-6 lg:grid-cols-3">
+                <article class="glass-card rounded-3xl p-6">
+                    <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">Popular</p>
+                    <h3 class="mt-4 text-xl font-semibold text-white">Studio Lighting Kits</h3>
+                    <p class="mt-3 text-slate-300">Perfect for product photography, interviews, and livestream sets.</p>
+                </article>
+                <article class="glass-card rounded-3xl p-6">
+                    <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">Best Value</p>
+                    <h3 class="mt-4 text-xl font-semibold text-white">Audio & Editing Bundles</h3>
+                    <p class="mt-3 text-slate-300">Audio gear, capture cards, and editing plugins to polish every story.</p>
+                </article>
+                <article class="glass-card rounded-3xl p-6">
+                    <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">Staff Picks</p>
+                    <h3 class="mt-4 text-xl font-semibold text-white">Regulatory Tracker Subscriptions</h3>
+                    <p class="mt-3 text-slate-300">Stay ahead of compliance updates with curated industry alerts.</p>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+            <nav class="flex flex-wrap items-center justify-center gap-3 text-slate-300">
+                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+                <span class="text-slate-600">|</span>
+                <a href="pillars.html" class="hover:text-brand-accent transition">Pillars</a>
+                <span class="text-slate-600">|</span>
+                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
+                <span class="text-slate-600">|</span>
+                <a href="news.html" class="hover:text-brand-accent transition">News Outlet</a>
+                <span class="text-slate-600">|</span>
+                <a href="shop.html" class="hover:text-brand-accent transition">Shop</a>
+                <span class="text-slate-600">|</span>
+                <a href="privacy.html" class="hover:text-brand-accent transition">Privacy</a>
+                <span class="text-slate-600">|</span>
+                <a href="terms.html" class="hover:text-brand-accent transition">Terms</a>
+            </nav>
+            <p class="text-center md:text-right">© 2026 Ryan Todd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons()</script>
+</body>
+</html>
