@@ -243,7 +243,8 @@
                     const title = item.querySelector('title')?.textContent || 'Untitled news item';
                     const link = item.querySelector('link')?.textContent || '#';
                     const description = item.querySelector('description')?.textContent || 'Read the latest cannabis and hemp industry news.';
-                    const author = item.querySelector('dc\:creator, creator')?.textContent || 'Industry Feed';
+                    const authorNode = item.querySelector('creator') || item.getElementsByTagName('dc:creator')[0] || item.getElementsByTagNameNS('*', 'creator')[0];
+                    const author = authorNode?.textContent || 'Industry Feed';
                     const pubDate = item.querySelector('pubDate')?.textContent;
                     const published = pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
                     return `
