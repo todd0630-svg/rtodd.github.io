@@ -101,6 +101,7 @@
                         </div>
                         <div class="glass-card rounded-[2rem] border border-white/10 p-6">
                             <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">Newest Videos</p>
+                            <p id="playlistStatus" class="text-sm text-slate-400 mb-4">Loading playlist status...</p>
                             <div id="newsGrid" class="grid gap-4"></div>
                         </div>
                     </div>
@@ -138,13 +139,6 @@
             </section>
         </div>
     </main>
-
-    <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
-        <div class="max-w-7xl mx-auto px-6 text-center text-sm">
-            <p class="mb-4">TokenHaven News Outlet — automatically sync your playlist with the latest video coverage.</p>
-            <p>© 2026 TokenHaven. All rights reserved.</p>
-        </div>
-    </footer>
 
     <script>
         const API_KEY = 'AIzaSyCIzykQViEPjizTGCBFj9eRnCyE-M9-BNs';
