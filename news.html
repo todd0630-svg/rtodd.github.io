@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="grid gap-6 lg:grid-cols-[1.55fr_0.85fr]">
                     <div class="glass-card rounded-[2rem] border border-white/10 p-6">
                         <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">YouTube Player</p>
                         <div class="rounded-[1.75rem] overflow-hidden border border-white/10 bg-black aspect-video">
@@ -179,9 +179,9 @@
                     return `
                         <article class="video-card rounded-3xl border border-white/10 bg-brand-charcoal/90 overflow-hidden shadow-lg shadow-black/20">
                             <a href="#" onclick="playVideo('${videoId}'); return false;" class="block">
-                                <img src="${thumb}" alt="${title}" class="h-44 w-full object-cover" />
+                                <img src="${thumb}" alt="${title}" class="h-32 w-full object-cover" />
                             </a>
-                            <div class="p-4">
+                            <div class="p-3">
                                 <a href="#" onclick="playVideo('${videoId}'); return false;" class="text-sm font-semibold text-white hover:text-brand-accent transition">${title}</a>
                                 <p class="mt-2 text-xs leading-5 text-slate-400 overflow-hidden" style="max-height:3.6rem;">${description}</p>
                             </div>
@@ -197,7 +197,7 @@
         async function loadNewsFeed() {
             if (!newsFeedGrid) return;
             const feedUrl = 'https://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en';
-            const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
+            const apiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`;
             const timestamp = document.getElementById('newsFeedTimestamp');
             const refreshButton = document.getElementById('newsFeedRefresh');
 
