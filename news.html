@@ -56,6 +56,27 @@
     </nav>
     <main class="pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-6 space-y-16">
+            <section class="space-y-6">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Cannabis + Hemp News</p>
+                            <h3 class="text-3xl font-semibold text-white">Auto-updating industry headlines</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span id="newsFeedTimestamp" class="text-sm text-slate-400">Updated just now</span>
+                            <button id="newsFeedRefresh" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">
+                                Refresh
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="newsFeedGrid" class="grid gap-4 lg:grid-cols-2">
+                        <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">Loading cannabis & hemp headlines...</div>
+                    </div>
+                </div>
+            </section>
+
             <section class="space-y-10">
                 <div class="space-y-6">
                     <div class="inline-flex items-center gap-3 rounded-full border border-brand-accent/25 bg-brand-charcoal/40 px-4 py-2 text-sm text-brand-accent">
@@ -69,10 +90,6 @@
                         <div class="glass-card rounded-3xl p-6">
                             <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-3">Live Breaking News</p>
                             <p class="text-sm text-slate-300">Top News Story is now a live Kick broadcast directly on the page.</p>
-                        </div>
-                        <div class="glass-card rounded-3xl p-6">
-                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-3">Inline Playback</p>
-                            <p class="text-sm text-slate-300">Newest videos and featured clips can be played directly in the embedded player without leaving the site.</p>
                         </div>
                     </div>
                 </div>
@@ -127,17 +144,7 @@
             </section>
 
             <section class="space-y-6">
-                <div class="glass-card rounded-[2rem] border border-white/10 p-6">
-                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
-                        <div>
-                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Cannabis + Hemp News</p>
-                            <h3 class="text-xl font-semibold text-white">Auto-updating industry headlines</h3>
-                        </div>
-                        <span class="text-sm text-slate-400">Powered by live search results for cannabis and hemp news.</span>
-                    </div>
-                    <div id="newsFeedGrid" class="grid gap-4 lg:grid-cols-2"></div>
-                </div>
-            </section>
+</section>
         </div>
     </main>
 
@@ -234,6 +241,20 @@
             if (!newsFeedGrid) return;
             const feedUrl = encodeURIComponent('https://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en');
             const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}&count=6`;
+            const timestamp = document.getElementById('newsFeedTimestamp');
+            const refreshButton = document.getElementById('newsFeedRefresh');
+
+            if (refreshButton) {
+                refreshButton.disabled = true;
+                refreshButton.classList.add('opacity-60', 'cursor-not-allowed');
+                refreshButton.innerHTML = `Refreshing <i data-lucide="loader" class="w-4 h-4 animate-spin"></i>`;
+                lucide.createIcons();
+            }
+
+            newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-400">Loading the latest cannabis and hemp headlines...</div>`;
+            if (timestamp) {
+                timestamp.textContent = 'Updating now…';
+            }
 
             try {
                 const response = await fetch(apiUrl);
@@ -245,6 +266,7 @@
                 const items = data.items || [];
                 if (!items.length) {
                     newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No cannabis news headlines were available at the moment.</div>`;
+                    if (timestamp) timestamp.textContent = 'No recent headlines found';
                     return;
                 }
 
@@ -260,13 +282,33 @@
                             </div>
                         </article>`;
                 }).join('');
+
+                if (timestamp) {
+                    const now = new Date();
+                    timestamp.textContent = `Updated ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+                }
             } catch (error) {
                 newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">Live news feed unavailable. ${error.message}</div>`;
+                if (timestamp) timestamp.textContent = 'Update failed';
                 console.error(error);
+            } finally {
+                if (refreshButton) {
+                    refreshButton.disabled = false;
+                    refreshButton.classList.remove('opacity-60', 'cursor-not-allowed');
+                    refreshButton.innerHTML = `Refresh <i data-lucide="refresh-cw" class="w-4 h-4"></i>`;
+                    lucide.createIcons();
+                }
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            const refreshButton = document.getElementById('newsFeedRefresh');
+            if (refreshButton) {
+                refreshButton.addEventListener('click', () => {
+                    loadNewsFeed();
+                });
+            }
+
             loadPlaylist();
             loadNewsFeed();
         });
