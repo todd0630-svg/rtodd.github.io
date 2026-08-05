@@ -141,6 +141,24 @@
         const KICK_CLIENT_SECRET = 'a7f2fd23a76e6e9fa52ed189d7c237d93003d732bba7885993b877a233734683';
         const KICK_CHANNEL = 'tokenhaven';
 
+        const newsFeedBackupStories = [
+            {
+                title: 'Live cannabis news temporarily unavailable',
+                link: 'https://tokenhaven.substack.com',
+                description: 'Visit TokenHaven Substack for the latest cannabis and hemp market coverage until the live feed returns.'
+            },
+            {
+                title: 'Explore hemp business commentary on Substack',
+                link: 'https://tokenhaven.substack.com',
+                description: 'Stay connected with TokenHaven analysis while the RSS proxy reconnects.'
+            },
+            {
+                title: 'Check our latest videos for cannabis updates',
+                link: 'https://www.youtube.com/playlist?list=PLO3qZDKc0Wf3jhbXM9pALYIGt1kgbebhQ',
+                description: 'Our YouTube playlist keeps you informed when the news feed is unreliable.'
+            }
+        ];
+
         const playlistStatus = document.getElementById('playlistStatus');
         const newsGrid = document.getElementById('newsGrid');
         const newsFeedGrid = document.getElementById('newsFeedGrid');
@@ -210,35 +228,42 @@
         async function loadSubstackFeed() {
             if (!substackFeed) return;
             const feedUrl = 'https://tokenhaven.substack.com/feed';
-            const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
+            const apiUrl = `https://r.jina.ai/http://tokenhaven.substack.com/feed`;
             substackFeed.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">Loading latest Substack posts...</div>`;
             try {
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
                     throw new Error('Failed to fetch Substack posts.');
                 }
-                const data = await response.json();
-                const xmlText = data.contents;
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(xmlText, 'application/xml');
-                if (xml.querySelector('parsererror')) {
-                    throw new Error('Unable to parse Substack feed.');
+                const text = await response.text();
+                const bodyStart = text.indexOf('Markdown Content:');
+                if (bodyStart === -1) {
+                    throw new Error('Unexpected Substack proxy response.');
                 }
-                const items = Array.from(xml.querySelectorAll('item')).slice(0, 4);
-                if (!items.length) {
+                const markdown = text.slice(bodyStart + 'Markdown Content:'.length).trim();
+                const links = [];
+                const lines = markdown.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+                for (let i = 0; i < lines.length; i++) {
+                    const match = lines[i].match(/^### \[\]\(([^)]+)\)$/);
+                    if (match) {
+                        const url = match[1];
+                        let title = url.split('/').pop() || url;
+                        title = decodeURIComponent(title.replace(/-/g, ' '));
+                        title = title.replace(/\b\w/g, c => c.toUpperCase());
+                        links.push({ title, url });
+                    }
+                    if (links.length >= 4) break;
+                }
+                if (!links.length) {
                     substackFeed.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">No Substack posts available right now.</div>`;
                     return;
                 }
-                substackFeed.innerHTML = items.map(item => {
-                    const title = item.querySelector('title')?.textContent || 'Untitled post';
-                    const link = item.querySelector('link')?.textContent || 'https://tokenhaven.substack.com';
-                    const pubDate = item.querySelector('pubDate')?.textContent;
-                    const dateLabel = pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
-                    return `<a href="${link}" target="_blank" rel="noreferrer noopener" class="block rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5 transition hover:bg-brand-charcoal/95">
-                        <div class="text-sm font-semibold text-white">${title}</div>
-                        <div class="mt-2 text-xs text-slate-400">${dateLabel}</div>
-                    </a>`;
-                }).join('');
+                substackFeed.innerHTML = links.map(item => `
+                    <a href="${item.url}" target="_blank" rel="noreferrer noopener" class="block rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5 transition hover:bg-brand-charcoal/95">
+                        <div class="text-sm font-semibold text-white">${item.title}</div>
+                        <div class="mt-2 text-xs text-slate-400">Read the latest Substack post</div>
+                    </a>
+                `).join('');
             } catch (error) {
                 substackFeed.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">Unable to load Substack posts. ${error.message}</div>`;
                 console.error(error);
@@ -260,10 +285,48 @@
                 </article>`).join('');
         }
 
+        function renderNewsFeedItems(items, statusText) {
+            if (!newsFeedGrid) return;
+            newsFeedGrid.innerHTML = items.map(item => `
+                <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                    <a href="${item.link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${item.title}</a>
+                    <p class="mt-3 text-sm leading-6 text-slate-300">${item.description}</p>
+                </article>`).join('');
+            const timestamp = document.getElementById('newsFeedTimestamp');
+            if (timestamp) timestamp.textContent = statusText;
+        }
+
+        async function fetchFeedContent(urls) {
+            let lastError;
+            for (const apiUrl of urls) {
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`Proxy returned ${response.status}`);
+                    }
+                    if (apiUrl.includes('api.allorigins.win/get')) {
+                        const data = await response.json();
+                        if (!data.contents) {
+                            throw new Error('AllOrigins returned an empty response.');
+                        }
+                        return data.contents;
+                    }
+                    return await response.text();
+                } catch (error) {
+                    lastError = error;
+                    console.warn(`News feed proxy failed for ${apiUrl}:`, error);
+                }
+            }
+            throw lastError || new Error('Unable to fetch feed from any proxy.');
+        }
+
         async function loadNewsFeed() {
             if (!newsFeedGrid) return;
             const feedUrl = 'https://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en';
-            const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
+            const apiUrls = [
+                `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
+                `https://r.jina.ai/http://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en`
+            ];
             const timestamp = document.getElementById('newsFeedTimestamp');
             const refreshButton = document.getElementById('newsFeedRefresh');
 
@@ -280,13 +343,7 @@
             }
 
             try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch live news feed.');
-                }
-
-                const data = await response.json();
-                const xmlText = data.contents;
+                const xmlText = await fetchFeedContent(apiUrls);
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(xmlText, 'application/xml');
                 if (xml.querySelector('parsererror')) {
@@ -324,8 +381,10 @@
                     timestamp.textContent = `Updated ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
                 }
             } catch (error) {
-                newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">Live news feed unavailable. ${error.message}</div>`;
-                if (timestamp) timestamp.textContent = 'Update failed';
+                renderNewsFeedItems(newsFeedBackupStories, 'Showing backup headlines');
+                const message = `Live news feed unavailable. ${error.message}`;
+                newsFeedGrid.insertAdjacentHTML('afterbegin', `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300 mb-4">${message}</div>`);
+                if (timestamp) timestamp.textContent = 'Backup headlines active';
                 console.error(error);
             } finally {
                 if (refreshButton) {
