@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TokenHaven News Outlet</title>
+    <title>TokenHaven News Outlet | News, Media & Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -57,6 +57,26 @@
     <main class="pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-6 space-y-16">
             <section class="space-y-6">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-8">
+                    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                        <div class="max-w-3xl">
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">All-in-one TokenHaven hub</p>
+                            <h1 class="mt-3 text-4xl font-bold text-white">News, media, and research in one place</h1>
+                            <p class="mt-4 text-lg leading-8 text-slate-300">Follow the latest cannabis and hemp headlines, browse our media channels, and explore curated NIH research articles without leaving the site.</p>
+                        </div>
+                        <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 px-5 py-4 text-sm text-slate-300">
+                            <div class="font-semibold text-white">Included now</div>
+                            <ul class="mt-2 space-y-2">
+                                <li>• Live news headlines</li>
+                                <li>• YouTube, TikTok, and Kick links</li>
+                                <li>• NIH / PubMed research articles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-6">
                 <div class="glass-card rounded-[2rem] border border-white/10 p-6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
                         <div>
@@ -72,6 +92,35 @@
                     </div>
                     <div id="newsFeedGrid" class="grid gap-4 lg:grid-cols-2">
                         <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">Loading cannabis & hemp headlines...</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-10">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-6">
+                    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Media Hub</p>
+                            <h2 class="text-3xl font-bold text-white">Podcast, streaming, and editorial channels</h2>
+                        </div>
+                        <a href="https://tokenhaven.substack.com" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Visit TokenHaven Substack</a>
+                    </div>
+                    <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                            <div class="text-sm font-semibold text-white">HighRants Podcast</div>
+                            <p class="mt-2 text-sm leading-6 text-slate-300">Operational commentary and scientific analysis from the front lines of cannabis and hemp media.</p>
+                            <a href="https://open.spotify.com/show/1GNkMNkas8x9SROFkCxBtB" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-accent">Listen on Spotify</a>
+                        </article>
+                        <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                            <div class="text-sm font-semibold text-white">YouTube Channel</div>
+                            <p class="mt-2 text-sm leading-6 text-slate-300">Editorial deep dives, regulatory updates, and clinical trend breakdowns.</p>
+                            <a href="https://www.youtube.com/@TokenHaven" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-accent">Watch Channel</a>
+                        </article>
+                        <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                            <div class="text-sm font-semibold text-white">Kick VODs</div>
+                            <p class="mt-2 text-sm leading-6 text-slate-300">Raw stream logs, live discussion highlights, and event recaps from TokenHaven broadcasts.</p>
+                            <a href="https://kick.com/tokenhaven/videos" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-accent">Review Broadcast VODs</a>
+                        </article>
                     </div>
                 </div>
             </section>
@@ -130,6 +179,18 @@
                     </div>
                 </div>
             </section>
+
+            <section class="glass-card rounded-[2rem] border border-white/10 p-6 shadow-xl shadow-black/10">
+                <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-6">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Shop & Research</p>
+                        <h2 class="mt-3 text-3xl font-bold text-white">NIH / PubMed articles with cannabis, hemp, or marijuana in the title</h2>
+                        <p class="mt-3 text-slate-300">This section keeps the research stream inside the same destination as your news and media content.</p>
+                    </div>
+                    <div class="rounded-full border border-brand-accent/20 px-4 py-2 text-sm text-slate-300">Auto-updating on load</div>
+                </div>
+                <div id="pubmedList" class="space-y-4"></div>
+            </section>
         </div>
     </main>
 
@@ -165,6 +226,7 @@
         const substackFeed = document.getElementById('substackFeed');
         const tiktokShortsGrid = document.getElementById('tiktokShortsGrid');
         const youtubePlayer = document.getElementById('youtubePlayer');
+        const pubmedList = document.getElementById('pubmedList');
 
         function playVideo(videoId) {
             if (!youtubePlayer) return;
@@ -283,6 +345,51 @@
                     <p class="mt-2 text-xs text-slate-400">Watch the latest TikTok captions and quick cannabis updates.</p>
                     <a href="${short.url}" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-brand-accent hover:text-white">Open on TikTok</a>
                 </article>`).join('');
+        }
+
+        async function loadPubMedArticles() {
+            if (!pubmedList) return;
+            pubmedList.innerHTML = '<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">Loading NIH PubMed research...</div>';
+
+            try {
+                const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=8&sort=pub_date&term=${encodeURIComponent('("cannabis"[Title] OR "hemp"[Title] OR "marijuana"[Title])')}`;
+                const searchResponse = await fetch(searchUrl);
+                if (!searchResponse.ok) throw new Error('PubMed search request failed.');
+
+                const searchData = await searchResponse.json();
+                const ids = searchData.esearchresult?.idlist || [];
+                if (!ids.length) throw new Error('No NIH articles were returned for the selected keywords.');
+
+                const summaryUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`;
+                const summaryResponse = await fetch(summaryUrl);
+                if (!summaryResponse.ok) throw new Error('PubMed summary request failed.');
+
+                const summaryData = await summaryResponse.json();
+                const articles = Object.values(summaryData.result || {}).filter(item => item && typeof item === 'object' && item.uid);
+                if (!articles.length) throw new Error('No article details were returned.');
+
+                pubmedList.innerHTML = articles.map(article => {
+                    const authors = Array.isArray(article.authors)
+                        ? article.authors.slice(0, 3).map(author => author.name).join(', ')
+                        : 'Authors unavailable';
+                    const journal = article.fulljournalname || 'Journal unavailable';
+                    const pubDate = article.pubdate || 'Date unavailable';
+                    return `
+                        <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                            <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                <div>
+                                    <p class="mt-2 text-xs uppercase tracking-[0.3em] text-brand-accent">NIH / PubMed</p>
+                                    <h3 class="mt-2 text-lg font-semibold text-white">${article.title}</h3>
+                                    <p class="mt-2 text-sm text-slate-300">${authors}</p>
+                                    <p class="mt-1 text-sm text-slate-400">${journal} • ${pubDate}</p>
+                                </div>
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/${article.uid}/" target="_blank" rel="noreferrer" class="shrink-0 inline-flex items-center justify-center rounded-full border border-brand-accent/20 bg-brand-accent/10 px-3 py-2 text-xs font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Open Article</a>
+                            </div>
+                        </article>`;
+                }).join('');
+            } catch (error) {
+                pubmedList.innerHTML = `<div class="rounded-3xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-red-300">${error.message}</div>`;
+            }
         }
 
         function renderNewsFeedItems(items, statusText) {
@@ -408,6 +515,7 @@
             loadNewsFeed();
             loadSubstackFeed();
             loadTikTokShorts();
+            loadPubMedArticles();
         });
     </script>
     <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
