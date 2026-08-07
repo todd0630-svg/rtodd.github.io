@@ -6,8 +6,6 @@
     <meta name="keywords" content="Ryan Todd, Ryan Todd consulting, cannabis science expert, medicinal cannabis therapeutics Florida, precious metals refining, corporate workflow automation, business compliance consulting">
     <meta name="author" content="Ryan Todd, M.S.">
     <meta name="robots" content="index, follow">
-
-    <!-- Open Graph (Controls how your site looks when shared on LinkedIn or text messages) -->
     <meta property="og:title" content="Ryan Todd, M.S. | Corporate Consulting & Subject Matter Expertise">
     <meta property="og:description" content="Accelerating corporate operational strategies, regulatory compliance mapping, and enterprise AI integrations.">
     <meta property="og:type" content="website">
@@ -15,131 +13,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ryan Todd, M.S. | Executive Cannabis Consultant & Subject Matter Expert</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            dark: '#0B110E',
-                            charcoal: '#161F1B',
-                            emerald: '#1E3F20',
-                            accent: '#4ADE80',
-                            text: '#E2E8F0'
-                        }
+                        parchment: '#F1ECDE',
+                        card: '#E7E0C8',
+                        ink: '#1C2621',
+                        verdigris: '#4B7267',
+                        brass: '#A9832E',
+                        rule: '#C9BFA0'
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace']
                     }
                 }
             }
         }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0B110E; color: #E2E8F0; }
-        .modal-open { overflow: hidden; }
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+        body { background-color: #F1ECDE; color: #1C2621; }
+
+        /* Certificate frame: corner ticks like a notarized document */
+        .cert-frame {
+            position: relative;
+            border: 1px solid #C9BFA0;
+        }
+        .cert-frame::before, .cert-frame::after,
+        .cert-frame .tick-br, .cert-frame .tick-bl {
+            content: '';
+            position: absolute;
+            width: 22px; height: 22px;
+            border-color: #A9832E;
+        }
+        .cert-frame::before { top: -1px; left: -1px; border-top: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame::after { top: -1px; right: -1px; border-top: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .cert-frame .tick-bl { bottom: -1px; left: -1px; border-bottom: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame .tick-br { bottom: -1px; right: -1px; border-bottom: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+
+        .eyebrow {
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            color: #4B7267;
+        }
+
+        .seal-ring text { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.08em; }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .seal-spin { animation: seal-rotate 40s linear infinite; transform-origin: center; }
+        }
+        @keyframes seal-rotate { to { transform: rotate(360deg); } }
+
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #A9832E;
+            outline-offset: 2px;
+        }
+
+        .field-row { border-top: 1px solid #C9BFA0; }
+        .field-row:last-child { border-bottom: 1px solid #C9BFA0; }
     </style>
-<!-- Lucide Icons Core Script -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body class="antialiased flex flex-col min-h-screen font-body">
 
     <!-- NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full z-40 bg-brand-dark/95 border-b border-white/10 backdrop-blur-sm">
+    <nav class="fixed top-0 left-0 w-full z-40 bg-parchment/95 border-b border-rule backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex flex-col">
-                <a href="index.html" class="text-xl font-bold tracking-tight text-white hover:text-brand-accent transition">RYAN TODD, M.S.</a>
-                <span class="text-xs tracking-widest text-brand-accent uppercase font-semibold">Subject Matter Expert</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="index.html" class="text-brand-accent font-semibold transition">Home</a>
-                <a href="pillars.html" class="hover:text-brand-accent transition">Consultation Pillars</a>
-                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
-                <a href="news.html" class="hover:text-brand-accent transition">News Outlet</a>
-                <a href="shop.html" class="hover:text-brand-accent transition">Shop</a>
-                <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 hover:text-brand-accent transition">
-                    <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
+            <a href="index.html" class="flex items-center gap-3">
+                <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="47" fill="none" stroke="#A9832E" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#4B7267" stroke-width="1"/>
+                    <text x="50" y="58" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="30" fill="#1C2621">RT</text>
+                </svg>
+                <div class="flex flex-col leading-tight">
+                    <span class="font-display font-semibold text-lg text-ink">Ryan Todd, M.S.</span>
+                    <span class="eyebrow">Subject Matter Expert</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-ink/80">
+                <a href="index.html" class="text-brass font-semibold transition">Home</a>
+                <a href="pillars.html" class="hover:text-brass transition">Consultation Pillars</a>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 rounded-sm border border-ink px-4 py-2 hover:bg-ink hover:text-parchment transition">
+                    Book Consultation
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section class="relative pt-40 pb-24 flex items-center justify-center overflow-hidden flex-grow">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(30,63,32,0.15),transparent_50%)]"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(74,222,128,0.05),transparent_50%)]"></div>
-        
-        <div class="relative max-w-5xl mx-auto px-6 text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-accent/20 bg-brand-emerald/30 text-brand-accent text-sm font-medium mb-8">
-                <i data-lucide="graduation-cap" class="w-4 h-4"></i> M.S. Medicinal Cannabis Science & Therapeutics
-            </div>
-            
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-none mb-6">
-                Bridging the Gap Between <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-emerald-400">Science, Law, & Cannabis Operations</span>
-            </h1>
-            
-            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-                Strategic counsel and specialized operational roadmaps for multi-state operators, pharmaceutical firms, and regulatory bodies. Powered by clinical education and proven entrepreneurial execution.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="pillars.html" class="w-full sm:w-auto px-8 py-4 bg-brand-accent text-brand-dark font-semibold rounded-lg hover:bg-brand-accent/90 transition shadow-lg shadow-brand-accent/10 flex items-center justify-center gap-2">
-                    Explore Consultation Pillars <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                </a>
-                <a href="media-hub.html" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-lg hover:bg-white/5 transition flex items-center justify-center gap-2">
-                    Visit TokenHaven Media Hub <i data-lucide="play" class="w-5 h-5"></i>
-                </a>
+    <!-- HERO: styled as the header of a certificate of expertise -->
+    <section class="relative pt-36 pb-20 flex-grow">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="cert-frame bg-card/60 px-8 sm:px-14 py-14">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+
+                <div class="flex flex-wrap items-start justify-between gap-6 mb-10 font-mono text-xs text-verdigris uppercase tracking-widest">
+                    <span>Certificate of Expertise</span>
+                    <span>No. 0142&#8209;RT &middot; Issued 2026</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-center">
+                    <div>
+                        <h1 class="font-display text-4xl sm:text-6xl font-semibold text-ink leading-[1.05] mb-6">
+                            Bridging Science, Law &amp; Cannabis Operations
+                        </h1>
+                        <p class="text-lg text-ink/70 max-w-2xl leading-relaxed mb-10">
+                            Strategic counsel and specialized operational roadmaps for multi&#8209;state operators, pharmaceutical firms, and regulatory bodies &mdash; backed by clinical education and hands&#8209;on entrepreneurial execution.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start gap-4">
+                            <a href="pillars.html" class="px-7 py-3.5 bg-ink text-parchment font-semibold rounded-sm hover:bg-verdigris transition inline-flex items-center gap-2">
+                                Explore Consultation Pillars <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                            <a href="media-hub.html" class="px-7 py-3.5 border border-ink text-ink font-semibold rounded-sm hover:bg-ink/5 transition inline-flex items-center gap-2">
+                                Visit TokenHaven Media Hub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Signature seal: hallmark motif, ties to Todd's PMG minting business -->
+                    <svg width="150" height="150" viewBox="0 0 200 200" class="hidden lg:block shrink-0" aria-hidden="true">
+                        <circle cx="100" cy="100" r="94" fill="none" stroke="#A9832E" stroke-width="2"/>
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#4B7267" stroke-width="1"/>
+                        <g class="seal-spin">
+                            <path id="ringpath" d="M 100,20 A 80,80 0 1 1 99.9,20" fill="none"/>
+                            <text class="seal-ring" font-size="8.3" fill="#4B7267">
+                                <textPath href="#ringpath" startOffset="0%">CERTIFIED SUBJECT MATTER EXPERT &middot; MEDICINAL CANNABIS SCIENCE &amp; THERAPEUTICS &middot;</textPath>
+                            </text>
+                        </g>
+                        <text x="100" y="115" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="42" fill="#1C2621">RT</text>
+                    </svg>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CREDENTIALS BRIEF -->
-    <section class="py-20 border-t border-white/5 bg-brand-charcoal/30 relative">
+    <!-- CREDENTIALS: laid out like certificate metadata fields -->
+    <section class="py-20 border-t border-rule bg-card/40">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                 <div>
-                    <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-3 block">Scientific Credibility</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">University of Maryland School of Pharmacy Alumnus</h2>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        As a master's-level subject matter expert, my counsel is rooted in rigorous clinical pharmacology, therapeutics, and administrative policy. I analyze, interpret, and draft protocols designed to hold up under the strictest regulatory, state, and federal audits.
+                    <span class="eyebrow block mb-3">Scientific Credibility</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mb-6 leading-tight">University of Maryland School of Pharmacy Alumnus</h2>
+                    <p class="text-ink/70 mb-5 leading-relaxed">
+                        As a master's&#8209;level subject matter expert, my counsel is rooted in rigorous clinical pharmacology, therapeutics, and administrative policy. I analyze, interpret, and draft protocols designed to hold up under the strictest regulatory, state, and federal audits.
                     </p>
-                    <p class="text-slate-400 mb-8 leading-relaxed">
-                        Whether advising high-growth corporate boards, modeling lean supply chains, or structuring complex brand-licensing partnerships across state lines, I provide elite analytical precision that ensures compliant, high-margin execution.
+                    <p class="text-ink/70 mb-8 leading-relaxed">
+                        Whether advising high&#8209;growth corporate boards, modeling lean supply chains, or structuring complex brand&#8209;licensing partnerships across state lines, I provide elite analytical precision that ensures compliant, high&#8209;margin execution.
                     </p>
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="border-l-2 border-brand-accent pl-4">
-                            <span class="text-3xl font-extrabold text-white">20+</span>
-                            <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Core Competencies Represented</p>
+
+                    <div class="text-sm">
+                        <div class="field-row flex items-center justify-between py-3">
+                            <span class="font-mono text-xs uppercase tracking-widest text-verdigris">Credential</span>
+                            <span class="text-ink font-medium">M.S., Medicinal Cannabis Science</span>
                         </div>
-                        <div class="border-l-2 border-brand-accent pl-4">
-                            <span class="text-3xl font-extrabold text-white">M.S.</span>
-                            <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Medicinal Cannabis Science</p>
+                        <div class="field-row flex items-center justify-between py-3">
+                            <span class="font-mono text-xs uppercase tracking-widest text-verdigris">Competencies</span>
+                            <span class="text-ink font-medium">20+ core areas represented</span>
+                        </div>
+                        <div class="field-row flex items-center justify-between py-3">
+                            <span class="font-mono text-xs uppercase tracking-widest text-verdigris">Jurisdiction</span>
+                            <span class="text-ink font-medium">Multi&#8209;state operations</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-gradient-to-br from-brand-charcoal to-brand-dark p-8 rounded-2xl border border-white/10 shadow-2xl">
-                    <h3 class="text-xl font-bold text-white mb-4">Board & Leadership Readiness</h3>
-                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                        Fully equipped to serve as a Board of Directors member, executive strategist, or primary scientific liaison for governments and private sectors aiming to structure institutional operations.
+
+                <div class="cert-frame bg-parchment px-8 py-10">
+                    <span class="tick-bl"></span><span class="tick-br"></span>
+                    <h3 class="font-display text-xl font-semibold text-ink mb-4">Board &amp; Leadership Readiness</h3>
+                    <p class="text-sm text-ink/70 mb-6 leading-relaxed">
+                        Fully equipped to serve as a Board of Directors member, executive strategist, or primary scientific liaison for governments and private sectors structuring institutional operations.
                     </p>
-                    <ul class="space-y-4 text-sm text-slate-300">
+                    <ul class="space-y-4 text-sm text-ink/80">
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-accent shrink-0 mt-0.5"></i>
-                            <span>Legislative & regulatory drafting for state-level compliance.</span>
+                            <span class="font-mono text-brass mt-0.5">&sect;</span>
+                            <span>Legislative &amp; regulatory drafting for state&#8209;level compliance.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-accent shrink-0 mt-0.5"></i>
-                            <span>Clinical trial facilitation & analytical pharmaceutical protocols.</span>
+                            <span class="font-mono text-brass mt-0.5">&sect;</span>
+                            <span>Clinical trial facilitation &amp; analytical pharmaceutical protocols.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle" class="w-5 h-5 text-brand-accent shrink-0 mt-0.5"></i>
-                            <span>Upstream & downstream supply chain logistical alignment.</span>
+                            <span class="font-mono text-brass mt-0.5">&sect;</span>
+                            <span>Upstream &amp; downstream supply chain logistical alignment.</span>
                         </li>
                     </ul>
                     <div class="mt-8">
-                        <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 font-semibold text-brand-accent hover:text-white transition">
-                            Inquire for Board Seats & Speaking <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 font-semibold text-verdigris hover:text-brass transition">
+                            Inquire for Board Seats &amp; Speaking <i data-lucide="chevron-right" class="w-4 h-4"></i>
                         </a>
                     </div>
                 </div>
@@ -147,149 +218,145 @@
         </div>
     </section>
 
-    <!-- SHOP PROMO SECTION -->
-    <section class="py-16 border-t border-white/5 bg-brand-charcoal/20">
+    <!-- SHOP PROMO -->
+    <section class="py-16 border-t border-rule bg-parchment">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-brand-dark/90 border border-white/10 rounded-3xl p-8 shadow-2xl shadow-cyan-500/10">
+            <div class="cert-frame bg-card/50 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                     <div class="max-w-3xl">
-                        <span class="text-xs uppercase tracking-widest text-brand-accent font-bold">Explore the Shop</span>
-                        <h2 class="mt-4 text-3xl sm:text-4xl font-bold text-white">Shop curated cannabis media and creator resources</h2>
-                        <p class="mt-4 text-slate-400 leading-relaxed">
-                            Discover premium bundles for content production, research documentation, and streamlined reporting designed for TokenHaven collaborators and industry professionals.
+                        <span class="eyebrow block mb-3">Explore the Shop</span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink">Curated cannabis media &amp; creator resources</h2>
+                        <p class="mt-4 text-ink/70 leading-relaxed">
+                            Premium bundles for content production, research documentation, and streamlined reporting &mdash; built for TokenHaven collaborators and industry professionals.
                         </p>
                     </div>
-                    <a href="shop.html" class="inline-flex items-center justify-center rounded-full bg-brand-accent px-6 py-4 text-sm font-semibold text-brand-dark hover:bg-brand-accent/90 transition">
-                        Visit the Shop <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <a href="shop.html" class="inline-flex items-center justify-center gap-2 rounded-sm bg-brass px-6 py-4 text-sm font-semibold text-parchment hover:bg-ink transition shrink-0">
+                        Visit the Shop <i data-lucide="shopping-bag" class="w-4 h-4"></i>
                     </a>
                 </div>
 
-                <div class="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                    <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6">
-                        <p class="text-xs uppercase tracking-[0.35em] text-brand-accent font-semibold">Best Seller</p>
-                        <h3 class="mt-3 text-xl font-semibold text-white">TokenHaven Media Kit</h3>
-                        <p class="mt-3 text-slate-400 text-sm leading-relaxed">A ready-made branding package with video overlays, thumbnails, and editorial templates for fast launch campaigns.</p>
+                <div class="mt-8 grid gap-4 sm:grid-cols-3 font-mono text-xs">
+                    <div class="border border-rule bg-parchment/60 p-5">
+                        <p class="uppercase tracking-widest text-brass">Best Seller</p>
+                        <h3 class="mt-3 font-body text-base font-semibold text-ink">TokenHaven Media Kit</h3>
+                        <p class="mt-3 text-ink/60 font-body leading-relaxed">Branding package with video overlays, thumbnails, and editorial templates.</p>
                     </div>
-                    <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6">
-                        <p class="text-xs uppercase tracking-[0.35em] text-brand-accent font-semibold">Essential</p>
-                        <h3 class="mt-3 text-xl font-semibold text-white">Research Brief Notebooks</h3>
-                        <p class="mt-3 text-slate-400 text-sm leading-relaxed">Organize compliance notes, reference summaries, and content ideas in a secure, specialist-designed format.</p>
+                    <div class="border border-rule bg-parchment/60 p-5">
+                        <p class="uppercase tracking-widest text-brass">Essential</p>
+                        <h3 class="mt-3 font-body text-base font-semibold text-ink">Research Brief Notebooks</h3>
+                        <p class="mt-3 text-ink/60 font-body leading-relaxed">Organize compliance notes and reference summaries in a specialist format.</p>
                     </div>
-                    <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6">
-                        <p class="text-xs uppercase tracking-[0.35em] text-brand-accent font-semibold">Staff Pick</p>
-                        <h3 class="mt-3 text-xl font-semibold text-white">Editorial Workflow Bundle</h3>
-                        <p class="mt-3 text-slate-400 text-sm leading-relaxed">A proven set of tools for managing story pipelines, approvals, and publish-ready media assets.</p>
+                    <div class="border border-rule bg-parchment/60 p-5">
+                        <p class="uppercase tracking-widest text-brass">Staff Pick</p>
+                        <h3 class="mt-3 font-body text-base font-semibold text-ink">Editorial Workflow Bundle</h3>
+                        <p class="mt-3 text-ink/60 font-body leading-relaxed">Tools for managing story pipelines, approvals, and publish&#8209;ready assets.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-<!-- AI INTEGRATION CAPABILITY SECTION -->
-    <section class="py-20 border-t border-white/5 bg-gradient-to-b from-brand-charcoal/20 to-brand-dark relative">
+    <!-- AI INTEGRATION: reframed as a service, not a disclosure about the site itself -->
+    <section class="py-20 border-t border-rule bg-card/40">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                
-                <div class="order-2 lg:order-1 bg-gradient-to-br from-brand-dark to-brand-charcoal p-8 rounded-2xl border border-brand-accent/20 shadow-2xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-3 h-3 rounded-full bg-brand-accent animate-pulse"></div>
-                        <span class="text-xs uppercase tracking-widest text-brand-accent font-bold">Case Study: Live Deployment</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Case in Point: This Digital Infrastructure</h3>
-                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">
-                        This multi-page enterprise portal was concepted, structured, compliance-mapped, and completely generated utilizing advanced Artificial Intelligence protocols under my direct prompting engineering. 
+                <div>
+                    <span class="eyebrow block mb-3">Next&#8209;Generation Efficiency</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-semibold text-ink mb-6 leading-tight">AI Integration for Regulated Operations</h2>
+                    <p class="text-ink/70 mb-5 leading-relaxed">
+                        True subject matter expertise means evolving past manual, legacy bottlenecks. I train and embed workflow automation directly into highly regulated enterprise operations.
                     </p>
-                    <div class="space-y-4 text-xs text-slate-300">
-                        <div class="p-4 rounded-lg bg-brand-dark/50 border border-white/5">
-                            <span class="font-bold text-white block mb-1">Time-to-Market Optimization</span>
-                            <span class="text-slate-400">Reduced multi-page development lifecycles from weeks to mere hours.</span>
+                    <p class="text-ink/70 leading-relaxed">
+                        I help corporate boards automate standard operating procedures, speed up technical document drafting, and predict regional compliance variances &mdash; without loosening the audit trail.
+                    </p>
+                </div>
+                <div class="cert-frame bg-parchment p-8">
+                    <span class="tick-bl"></span><span class="tick-br"></span>
+                    <span class="eyebrow block mb-4">Engagement Outcomes</span>
+                    <div class="space-y-4 text-sm">
+                        <div class="field-row flex items-center justify-between py-3">
+                            <span class="text-ink/70">Time&#8209;to&#8209;market</span>
+                            <span class="text-ink font-semibold">Weeks &rarr; Hours</span>
                         </div>
-                        <div class="p-4 rounded-lg bg-brand-dark/50 border border-white/5">
-                            <span class="font-bold text-white block mb-1">Regulatory Mapping Automation</span>
-                            <span class="text-slate-400">AI-driven cross-referencing of state-level data and federal requirements.</span>
+                        <div class="field-row flex items-center justify-between py-3">
+                            <span class="text-ink/70">Regulatory mapping</span>
+                            <span class="text-ink font-semibold">State &amp; federal, cross&#8209;referenced</span>
+                        </div>
+                        <div class="field-row flex items-center justify-between py-3">
+                            <span class="text-ink/70">Audit readiness</span>
+                            <span class="text-ink font-semibold">Maintained throughout</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="order-1 lg:order-2">
-                    <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-3 block">Next-Generation Efficiency</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">Advanced AI Integration for Modern Business Operations</h2>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        True subject matter expertise means evolving beyond manual legacy bottlenecks. I specialize in training and embedding advanced LLMs and workflow automation models directly into highly regulated enterprise operations.
-                    </p>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        By integrating AI-driven systems, I assist corporate boards and operations in automating complex standard operating procedures (SOPs), speeding up technical document drafting, optimizing data tracking, and predicting regional compliance variances.
-                    </p>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- VENTURES GRID -->
-    <section class="py-20 border-t border-white/5 bg-brand-dark relative">
+    <!-- VENTURES -->
+    <section class="py-20 border-t border-rule bg-parchment">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-3 block">Active Ventures</span>
-                <h2 class="text-3xl sm:text-5xl font-bold text-white mb-4">Established Enterprises</h2>
-                <p class="text-slate-400">Diverse entrepreneurial leadership across high-precision physical minting, custom software engineering, and clinical education production.</p>
+            <div class="max-w-3xl mb-16">
+                <span class="eyebrow block mb-3">Active Ventures</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-semibold text-ink mb-4">Established Enterprises</h2>
+                <p class="text-ink/70">Entrepreneurial leadership across high&#8209;precision physical minting, custom software engineering, and clinical education production.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-brand-charcoal/50 p-8 rounded-xl border border-white/5 hover:border-brand-accent/10 transition">
+                <div class="border border-rule bg-card/40 p-8 hover:border-brass transition">
                     <div class="flex items-center justify-between mb-6">
-                        <span class="text-xs uppercase font-bold text-brand-accent px-2 py-1 bg-brand-emerald/30 border border-brand-accent/20 rounded">Minting & Production</span>
-                        <i data-lucide="shield" class="text-slate-500"></i>
+                        <span class="font-mono text-xs uppercase text-verdigris border border-verdigris/40 px-2 py-1">Minting &amp; Production</span>
+                        <i data-lucide="shield" class="text-ink/40 w-5 h-5"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Todd's PMG</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        A private precious metals mint producing custom physical bullion products. Demands rigorous asset security, extreme high-precision technical manufacturing, and operational logistics.
+                    <h3 class="font-display text-2xl font-semibold text-ink mb-4">Todd's PMG</h3>
+                    <p class="text-ink/70 text-sm leading-relaxed">
+                        A private precious metals mint producing custom physical bullion products. Demands rigorous asset security, high&#8209;precision manufacturing, and operational logistics.
                     </p>
                 </div>
 
-                <div class="bg-brand-charcoal/50 p-8 rounded-xl border border-white/5 hover:border-brand-accent/10 transition">
+                <div class="border border-rule bg-card/40 p-8 hover:border-brass transition">
                     <div class="flex items-center justify-between mb-6">
-                        <span class="text-xs uppercase font-bold text-brand-accent px-2 py-1 bg-brand-emerald/30 border border-brand-accent/20 rounded">Software / SaaS</span>
-                        <i data-lucide="database" class="text-slate-500"></i>
+                        <span class="font-mono text-xs uppercase text-verdigris border border-verdigris/40 px-2 py-1">Software / SaaS</span>
+                        <i data-lucide="database" class="text-ink/40 w-5 h-5"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">Warnodd LLC</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        A technology-forward development vehicle. Creator and architect of <strong>Dank-Bank.com</strong>, proving digital systems expertise and SaaS product development capability in regulated markets.
+                    <h3 class="font-display text-2xl font-semibold text-ink mb-4">Warnodd LLC</h3>
+                    <p class="text-ink/70 text-sm leading-relaxed">
+                        A technology&#8209;forward development vehicle. Creator and architect of <strong>Dank&#8209;Bank.com</strong>, proving digital systems expertise in regulated markets.
                     </p>
                 </div>
 
-                <div class="bg-brand-charcoal/50 p-8 rounded-xl border border-white/5 hover:border-brand-accent/10 transition">
+                <div class="border border-rule bg-card/40 p-8 hover:border-brass transition">
                     <div class="flex items-center justify-between mb-6">
-                        <span class="text-xs uppercase font-bold text-brand-accent px-2 py-1 bg-brand-emerald/30 border border-brand-accent/20 rounded">Media & Education</span>
-                        <i data-lucide="clapperboard" class="text-slate-500"></i>
+                        <span class="font-mono text-xs uppercase text-verdigris border border-verdigris/40 px-2 py-1">Media &amp; Education</span>
+                        <i data-lucide="clapperboard" class="text-ink/40 w-5 h-5"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">TokenHaven</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        A modern production house translating heavy scientific medical cannabis peer-reviewed literature and clinical trials into engaging news segments, editorials, and reviews.
+                    <h3 class="font-display text-2xl font-semibold text-ink mb-4">TokenHaven</h3>
+                    <p class="text-ink/70 text-sm leading-relaxed">
+                        A production house translating peer&#8209;reviewed cannabis literature and clinical trials into engaging news segments, editorials, and reviews.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
+    <footer class="border-t border-rule bg-card/40 py-10 text-ink/70">
         <div class="max-w-7xl mx-auto px-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
-            <nav class="flex flex-wrap items-center justify-center gap-3 text-slate-300">
-                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
-                <span class="text-slate-600">|</span>
-                <a href="pillars.html" class="hover:text-brand-accent transition">Pillars</a>
-                <span class="text-slate-600">|</span>
-                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
-                <span class="text-slate-600">|</span>
-                <a href="news.html" class="hover:text-brand-accent transition">News Outlet</a>
-                <span class="text-slate-600">|</span>
-                <a href="shop.html" class="hover:text-brand-accent transition">Shop</a>
-                <span class="text-slate-600">|</span>
-                <a href="privacy.html" class="hover:text-brand-accent transition">Privacy</a>
-                <span class="text-slate-600">|</span>
-                <a href="terms.html" class="hover:text-brand-accent transition">Terms</a>
+            <nav class="flex flex-wrap items-center justify-center gap-3 text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <span class="text-rule">|</span>
+                <a href="pillars.html" class="hover:text-brass transition">Pillars</a>
+                <span class="text-rule">|</span>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <span class="text-rule">|</span>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <span class="text-rule">|</span>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <span class="text-rule">|</span>
+                <a href="privacy.html" class="hover:text-brass transition">Privacy</a>
+                <span class="text-rule">|</span>
+                <a href="terms.html" class="hover:text-brass transition">Terms</a>
             </nav>
-            <p class="text-center md:text-right">© 2026 Ryan Todd. All rights reserved.</p>
+            <p class="text-center md:text-right font-mono text-xs">&copy; 2026 Ryan Todd. All rights reserved.</p>
         </div>
     </footer>
     <script>lucide.createIcons();</script>

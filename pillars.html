@@ -1,17 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=index.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting to the homepage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The five consultation pillars offered by Ryan Todd, M.S. — clinical science, regulatory compliance, corporate strategy, operations, and AI integration for the cannabis industry.">
+    <title>Consultation Pillars | Ryan Todd, M.S.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: '#F1ECDE', card: '#E7E0C8', ink: '#1C2621',
+                        verdigris: '#4B7267', brass: '#A9832E', rule: '#C9BFA0'
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'], body: ['Inter', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: Inter, Arial, sans-serif; background: #050906; color: #E2E8F0; display: grid; place-items: center; min-height: 100vh; margin: 0; }
-        a { color: #4ADE80; }
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+        body { background-color: #F1ECDE; color: #1C2621; }
+        .cert-frame { position: relative; border: 1px solid #C9BFA0; }
+        .cert-frame::before, .cert-frame::after, .cert-frame .tick-bl, .cert-frame .tick-br {
+            content: ''; position: absolute; width: 22px; height: 22px; border-color: #A9832E;
+        }
+        .cert-frame::before { top: -1px; left: -1px; border-top: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame::after { top: -1px; right: -1px; border-top: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .cert-frame .tick-bl { bottom: -1px; left: -1px; border-bottom: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame .tick-br { bottom: -1px; right: -1px; border-bottom: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .eyebrow { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.7rem; color: #4B7267; }
+        .field-row { border-top: 1px solid #C9BFA0; }
+        .field-row:last-child { border-bottom: 1px solid #C9BFA0; }
+        a:focus-visible, button:focus-visible { outline: 2px solid #A9832E; outline-offset: 2px; }
     </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-    <p>Redirecting to the homepage… <a href="index.html">continue</a></p>
-    <script>window.location.replace('index.html');</script>
+<body class="antialiased font-body">
+
+    <nav class="fixed top-0 left-0 w-full z-40 bg-parchment/95 border-b border-rule backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="47" fill="none" stroke="#A9832E" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#4B7267" stroke-width="1"/>
+                    <text x="50" y="58" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="30" fill="#1C2621">RT</text>
+                </svg>
+                <div class="flex flex-col leading-tight">
+                    <span class="font-display font-semibold text-lg text-ink">Ryan Todd, M.S.</span>
+                    <span class="eyebrow">Subject Matter Expert</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <a href="pillars.html" class="text-brass font-semibold transition">Consultation Pillars</a>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 rounded-sm border border-ink px-4 py-2 hover:bg-ink hover:text-parchment transition">Book Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-36 pb-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <span class="eyebrow block mb-4">Scope of Engagement</span>
+            <h1 class="font-display text-4xl sm:text-6xl font-semibold text-ink leading-[1.05] mb-6">Five Consultation Pillars</h1>
+            <p class="text-lg text-ink/70 max-w-2xl leading-relaxed">
+                Each pillar below is a distinct clause of service &mdash; engaged individually or combined into a full advisory retainer, depending on where your organization needs the most support.
+            </p>
+        </div>
+    </section>
+
+    <section class="pb-24">
+        <div class="max-w-5xl mx-auto px-6 space-y-6">
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6">
+                    <div class="font-mono text-2xl text-brass font-semibold">&sect;1</div>
+                    <div>
+                        <h2 class="font-display text-2xl font-semibold text-ink mb-3">Clinical &amp; Therapeutic Science</h2>
+                        <p class="text-ink/70 leading-relaxed mb-4">Translating peer-reviewed cannabis pharmacology and therapeutics research into protocols your clinical or product team can actually operate on &mdash; dosage frameworks, indication mapping, and evidence review that holds up to scrutiny.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wide text-verdigris">
+                            <span class="border border-verdigris/40 px-2 py-1">Clinical Protocols</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Evidence Review</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Dosage Frameworks</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6">
+                    <div class="font-mono text-2xl text-brass font-semibold">&sect;2</div>
+                    <div>
+                        <h2 class="font-display text-2xl font-semibold text-ink mb-3">Regulatory &amp; Compliance Mapping</h2>
+                        <p class="text-ink/70 leading-relaxed mb-4">Cross-referencing state and federal requirements so your operation stays audit-ready across every jurisdiction you touch. This includes legislative drafting support and documentation built to survive a state inspection.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wide text-verdigris">
+                            <span class="border border-verdigris/40 px-2 py-1">Multi-State Compliance</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Audit Readiness</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Legislative Drafting</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6">
+                    <div class="font-mono text-2xl text-brass font-semibold">&sect;3</div>
+                    <div>
+                        <h2 class="font-display text-2xl font-semibold text-ink mb-3">Corporate Strategy &amp; Board Advisory</h2>
+                        <p class="text-ink/70 leading-relaxed mb-4">Serving as a scientific liaison or strategic voice at the board level &mdash; structuring brand-licensing partnerships, evaluating M&amp;A targets, and advising leadership on where the regulatory landscape is headed.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wide text-verdigris">
+                            <span class="border border-verdigris/40 px-2 py-1">Board Advisory</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Brand Licensing</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Strategic Planning</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6">
+                    <div class="font-mono text-2xl text-brass font-semibold">&sect;4</div>
+                    <div>
+                        <h2 class="font-display text-2xl font-semibold text-ink mb-3">Supply Chain &amp; Operations</h2>
+                        <p class="text-ink/70 leading-relaxed mb-4">Modeling lean, compliant supply chains from cultivation or manufacturing through distribution &mdash; upstream sourcing, downstream logistics, and the operational controls that keep both sides defensible.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wide text-verdigris">
+                            <span class="border border-verdigris/40 px-2 py-1">Supply Chain Design</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Logistics</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Operational Controls</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6">
+                    <div class="font-mono text-2xl text-brass font-semibold">&sect;5</div>
+                    <div>
+                        <h2 class="font-display text-2xl font-semibold text-ink mb-3">AI &amp; Workflow Automation</h2>
+                        <p class="text-ink/70 leading-relaxed mb-4">Embedding workflow automation into regulated operations without loosening the audit trail &mdash; SOP drafting, data tracking, and compliance-variance prediction, built for teams that answer to regulators.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-mono uppercase tracking-wide text-verdigris">
+                            <span class="border border-verdigris/40 px-2 py-1">SOP Automation</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Data Tracking</span>
+                            <span class="border border-verdigris/40 px-2 py-1">Audit-Safe AI</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="pb-24">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="cert-frame bg-parchment p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div>
+                    <span class="eyebrow block mb-2">Next Step</span>
+                    <h2 class="font-display text-2xl font-semibold text-ink">Discuss which pillars fit your organization</h2>
+                </div>
+                <a href="mailto:contact@ryantodd.com" class="px-7 py-3.5 bg-ink text-parchment font-semibold rounded-sm hover:bg-verdigris transition inline-flex items-center gap-2 shrink-0">
+                    Book a Consultation <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-rule bg-card/40 py-10 text-ink/70">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+            <nav class="flex flex-wrap items-center justify-center gap-3 text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <span class="text-rule">|</span>
+                <a href="pillars.html" class="hover:text-brass transition">Pillars</a>
+                <span class="text-rule">|</span>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <span class="text-rule">|</span>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <span class="text-rule">|</span>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <span class="text-rule">|</span>
+                <a href="privacy.html" class="hover:text-brass transition">Privacy</a>
+                <span class="text-rule">|</span>
+                <a href="terms.html" class="hover:text-brass transition">Terms</a>
+            </nav>
+            <p class="text-center md:text-right font-mono text-xs">&copy; 2026 Ryan Todd. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>lucide.createIcons();</script>
 </body>
 </html>

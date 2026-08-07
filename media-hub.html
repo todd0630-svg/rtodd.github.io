@@ -1,17 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=news.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting to TokenHaven News Outlet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TokenHaven Media Hub — podcast, YouTube, Kick, and Substack channels translating cannabis science into editorial coverage.">
+    <title>Media Hub | TokenHaven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: '#F1ECDE', card: '#E7E0C8', ink: '#1C2621',
+                        verdigris: '#4B7267', brass: '#A9832E', rule: '#C9BFA0'
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'], body: ['Inter', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: Arial, sans-serif; background: #050906; color: #e2e8f0; display: grid; place-items: center; min-height: 100vh; margin: 0; }
-        a { color: #4ADE80; }
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+        body { background-color: #F1ECDE; color: #1C2621; }
+        .cert-frame { position: relative; border: 1px solid #C9BFA0; }
+        .cert-frame::before, .cert-frame::after, .cert-frame .tick-bl, .cert-frame .tick-br {
+            content: ''; position: absolute; width: 22px; height: 22px; border-color: #A9832E;
+        }
+        .cert-frame::before { top: -1px; left: -1px; border-top: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame::after { top: -1px; right: -1px; border-top: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .cert-frame .tick-bl { bottom: -1px; left: -1px; border-bottom: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame .tick-br { bottom: -1px; right: -1px; border-bottom: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .eyebrow { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.7rem; color: #4B7267; }
+        a:focus-visible, button:focus-visible { outline: 2px solid #A9832E; outline-offset: 2px; }
     </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-    <p>Redirecting to the combined TokenHaven News Outlet page… <a href="news.html">continue</a></p>
-    <script>window.location.replace('news.html');</script>
+<body class="antialiased font-body">
+
+    <nav class="fixed top-0 left-0 w-full z-40 bg-parchment/95 border-b border-rule backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="47" fill="none" stroke="#A9832E" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#4B7267" stroke-width="1"/>
+                    <text x="50" y="58" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="30" fill="#1C2621">RT</text>
+                </svg>
+                <div class="flex flex-col leading-tight">
+                    <span class="font-display font-semibold text-lg text-ink">Ryan Todd, M.S.</span>
+                    <span class="eyebrow">Subject Matter Expert</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <a href="pillars.html" class="hover:text-brass transition">Consultation Pillars</a>
+                <a href="media-hub.html" class="text-brass font-semibold transition">Media Hub</a>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 rounded-sm border border-ink px-4 py-2 hover:bg-ink hover:text-parchment transition">Book Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-36 pb-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <span class="eyebrow block mb-4">TokenHaven Productions</span>
+            <h1 class="font-display text-4xl sm:text-6xl font-semibold text-ink leading-[1.05] mb-6">The Media Hub</h1>
+            <p class="text-lg text-ink/70 max-w-2xl leading-relaxed">
+                TokenHaven translates peer-reviewed cannabis and hemp literature into editorial coverage across four channels. For live headlines and research feeds, visit the <a href="news.html" class="text-verdigris underline hover:text-brass">News Outlet</a> &mdash; this page is the show catalog.
+            </p>
+        </div>
+    </section>
+
+    <section class="pb-16">
+        <div class="max-w-6xl mx-auto px-6 grid gap-6 md:grid-cols-2">
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="eyebrow">Podcast</span>
+                    <i data-lucide="mic" class="w-5 h-5 text-ink/40"></i>
+                </div>
+                <h2 class="font-display text-2xl font-semibold text-ink mb-3">HighRants Podcast</h2>
+                <p class="text-ink/70 leading-relaxed mb-6">Operational commentary and scientific analysis from the front lines of cannabis and hemp media &mdash; unscripted, regulator-aware, and grounded in the literature.</p>
+                <a href="https://open.spotify.com/show/1GNkMNkas8x9SROFkCxBtB" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 font-semibold text-verdigris hover:text-brass transition">Listen on Spotify <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="eyebrow">Video</span>
+                    <i data-lucide="youtube" class="w-5 h-5 text-ink/40"></i>
+                </div>
+                <h2 class="font-display text-2xl font-semibold text-ink mb-3">YouTube Channel</h2>
+                <p class="text-ink/70 leading-relaxed mb-6">Editorial deep dives, regulatory updates, and clinical trend breakdowns for viewers who want the full context, not a headline.</p>
+                <a href="https://www.youtube.com/@TokenHaven" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 font-semibold text-verdigris hover:text-brass transition">Watch the channel <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="eyebrow">Live Stream</span>
+                    <i data-lucide="radio" class="w-5 h-5 text-ink/40"></i>
+                </div>
+                <h2 class="font-display text-2xl font-semibold text-ink mb-3">Kick VODs</h2>
+                <p class="text-ink/70 leading-relaxed mb-6">Raw stream logs, live discussion highlights, and event recaps from TokenHaven broadcasts &mdash; the unedited record.</p>
+                <a href="https://kick.com/tokenhaven/videos" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 font-semibold text-verdigris hover:text-brass transition">Review broadcast VODs <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-8">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="eyebrow">Editorial</span>
+                    <i data-lucide="newspaper" class="w-5 h-5 text-ink/40"></i>
+                </div>
+                <h2 class="font-display text-2xl font-semibold text-ink mb-3">TokenHaven Substack</h2>
+                <p class="text-ink/70 leading-relaxed mb-6">Long-form written analysis &mdash; the place TokenHaven publishes the pieces too dense for a video segment.</p>
+                <a href="https://tokenhaven.substack.com" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 font-semibold text-verdigris hover:text-brass transition">Read the Substack <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="pb-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="cert-frame bg-parchment p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div>
+                    <span class="eyebrow block mb-2">Live Coverage</span>
+                    <h2 class="font-display text-2xl font-semibold text-ink">Watch the live playlist and read live headlines</h2>
+                </div>
+                <a href="news.html" class="px-7 py-3.5 bg-ink text-parchment font-semibold rounded-sm hover:bg-verdigris transition inline-flex items-center gap-2 shrink-0">
+                    Go to News Outlet <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-rule bg-card/40 py-10 text-ink/70">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+            <nav class="flex flex-wrap items-center justify-center gap-3 text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <span class="text-rule">|</span>
+                <a href="pillars.html" class="hover:text-brass transition">Pillars</a>
+                <span class="text-rule">|</span>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <span class="text-rule">|</span>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <span class="text-rule">|</span>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <span class="text-rule">|</span>
+                <a href="privacy.html" class="hover:text-brass transition">Privacy</a>
+                <span class="text-rule">|</span>
+                <a href="terms.html" class="hover:text-brass transition">Terms</a>
+            </nav>
+            <p class="text-center md:text-right font-mono text-xs">&copy; 2026 Ryan Todd. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>lucide.createIcons();</script>
 </body>
 </html>

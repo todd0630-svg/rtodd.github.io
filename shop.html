@@ -1,17 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=news.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting to TokenHaven News Outlet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop curated cannabis media and creator resources from TokenHaven — media kits, research notebooks, and editorial workflow bundles.">
+    <title>Shop | TokenHaven</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: '#F1ECDE', card: '#E7E0C8', ink: '#1C2621',
+                        verdigris: '#4B7267', brass: '#A9832E', rule: '#C9BFA0'
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'], body: ['Inter', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: Arial, sans-serif; background: #050906; color: #e2e8f0; display: grid; place-items: center; min-height: 100vh; margin: 0; }
-        a { color: #4ADE80; }
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+        body { background-color: #F1ECDE; color: #1C2621; }
+        .cert-frame { position: relative; border: 1px solid #C9BFA0; }
+        .cert-frame::before, .cert-frame::after, .cert-frame .tick-bl, .cert-frame .tick-br {
+            content: ''; position: absolute; width: 22px; height: 22px; border-color: #A9832E;
+        }
+        .cert-frame::before { top: -1px; left: -1px; border-top: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame::after { top: -1px; right: -1px; border-top: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .cert-frame .tick-bl { bottom: -1px; left: -1px; border-bottom: 2px solid #A9832E; border-left: 2px solid #A9832E; }
+        .cert-frame .tick-br { bottom: -1px; right: -1px; border-bottom: 2px solid #A9832E; border-right: 2px solid #A9832E; }
+        .eyebrow { font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.7rem; color: #4B7267; }
+        a:focus-visible, button:focus-visible { outline: 2px solid #A9832E; outline-offset: 2px; }
     </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-    <p>Redirecting to the combined TokenHaven News Outlet page… <a href="news.html">continue</a></p>
-    <script>window.location.replace('news.html');</script>
+<body class="antialiased font-body">
+
+    <nav class="fixed top-0 left-0 w-full z-40 bg-parchment/95 border-b border-rule backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle cx="50" cy="50" r="47" fill="none" stroke="#A9832E" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#4B7267" stroke-width="1"/>
+                    <text x="50" y="58" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="30" fill="#1C2621">RT</text>
+                </svg>
+                <div class="flex flex-col leading-tight">
+                    <span class="font-display font-semibold text-lg text-ink">Ryan Todd, M.S.</span>
+                    <span class="eyebrow">Subject Matter Expert</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <a href="pillars.html" class="hover:text-brass transition">Consultation Pillars</a>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <a href="shop.html" class="text-brass font-semibold transition">Shop</a>
+                <a href="mailto:contact@ryantodd.com" class="inline-flex items-center gap-2 rounded-sm border border-ink px-4 py-2 hover:bg-ink hover:text-parchment transition">Book Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-36 pb-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <span class="eyebrow block mb-4">TokenHaven Shop</span>
+            <h1 class="font-display text-4xl sm:text-6xl font-semibold text-ink leading-[1.05] mb-6">Creator &amp; Research Resources</h1>
+            <p class="text-lg text-ink/70 max-w-2xl leading-relaxed">
+                Bundles built for TokenHaven collaborators and industry professionals &mdash; content production, research documentation, and editorial workflow, packaged for fast use.
+            </p>
+        </div>
+    </section>
+
+    <section class="pb-16">
+        <div class="max-w-6xl mx-auto px-6 grid gap-6 md:grid-cols-3">
+
+            <article class="cert-frame bg-card/40 p-7 flex flex-col">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <span class="eyebrow mb-4">Best Seller</span>
+                <h2 class="font-display text-xl font-semibold text-ink mb-3">TokenHaven Media Kit</h2>
+                <p class="text-sm text-ink/70 leading-relaxed mb-6 flex-grow">A ready-made branding package with video overlays, thumbnails, and editorial templates for fast launch campaigns.</p>
+                <div class="flex items-center justify-between border-t border-rule pt-4">
+                    <span class="font-mono text-lg text-ink font-semibold">$89</span>
+                    <a href="mailto:contact@ryantodd.com?subject=TokenHaven%20Media%20Kit" class="text-sm font-semibold text-verdigris hover:text-brass transition">Request access &rarr;</a>
+                </div>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-7 flex flex-col">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <span class="eyebrow mb-4">Essential</span>
+                <h2 class="font-display text-xl font-semibold text-ink mb-3">Research Brief Notebooks</h2>
+                <p class="text-sm text-ink/70 leading-relaxed mb-6 flex-grow">Organize compliance notes, reference summaries, and content ideas in a secure, specialist-designed format.</p>
+                <div class="flex items-center justify-between border-t border-rule pt-4">
+                    <span class="font-mono text-lg text-ink font-semibold">$34</span>
+                    <a href="mailto:contact@ryantodd.com?subject=Research%20Brief%20Notebooks" class="text-sm font-semibold text-verdigris hover:text-brass transition">Request access &rarr;</a>
+                </div>
+            </article>
+
+            <article class="cert-frame bg-card/40 p-7 flex flex-col">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <span class="eyebrow mb-4">Staff Pick</span>
+                <h2 class="font-display text-xl font-semibold text-ink mb-3">Editorial Workflow Bundle</h2>
+                <p class="text-sm text-ink/70 leading-relaxed mb-6 flex-grow">A proven set of tools for managing story pipelines, approvals, and publish-ready media assets.</p>
+                <div class="flex items-center justify-between border-t border-rule pt-4">
+                    <span class="font-mono text-lg text-ink font-semibold">$59</span>
+                    <a href="mailto:contact@ryantodd.com?subject=Editorial%20Workflow%20Bundle" class="text-sm font-semibold text-verdigris hover:text-brass transition">Request access &rarr;</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="pb-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="cert-frame bg-parchment p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <span class="tick-bl"></span><span class="tick-br"></span>
+                <div>
+                    <span class="eyebrow block mb-2">Bulk or Custom Orders</span>
+                    <h2 class="font-display text-2xl font-semibold text-ink">Need a bundle tailored to your team?</h2>
+                </div>
+                <a href="mailto:contact@ryantodd.com?subject=Custom%20Bundle%20Inquiry" class="px-7 py-3.5 bg-ink text-parchment font-semibold rounded-sm hover:bg-verdigris transition inline-flex items-center gap-2 shrink-0">
+                    Contact for a Quote <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-rule bg-card/40 py-10 text-ink/70">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+            <nav class="flex flex-wrap items-center justify-center gap-3 text-ink/80">
+                <a href="index.html" class="hover:text-brass transition">Home</a>
+                <span class="text-rule">|</span>
+                <a href="pillars.html" class="hover:text-brass transition">Pillars</a>
+                <span class="text-rule">|</span>
+                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
+                <span class="text-rule">|</span>
+                <a href="news.html" class="hover:text-brass transition">News Outlet</a>
+                <span class="text-rule">|</span>
+                <a href="shop.html" class="hover:text-brass transition">Shop</a>
+                <span class="text-rule">|</span>
+                <a href="privacy.html" class="hover:text-brass transition">Privacy</a>
+                <span class="text-rule">|</span>
+                <a href="terms.html" class="hover:text-brass transition">Terms</a>
+            </nav>
+            <p class="text-center md:text-right font-mono text-xs">&copy; 2026 Ryan Todd. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
