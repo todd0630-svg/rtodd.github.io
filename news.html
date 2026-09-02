@@ -11,15 +11,12 @@
             theme: {
                 extend: {
                     colors: {
-                        verdigris: '#4B7267',
-                        brass: '#A9832E',
-                        rule: '#C9BFA0',
                         brand: {
-                            dark: '#F1ECDE',
-                            charcoal: '#E7E0C8',
-                            emerald: '#4B7267',
-                            accent: '#A9832E',
-                            text: '#1C2621'
+                            dark: '#0B110E',
+                            charcoal: '#161F1B',
+                            emerald: '#1E3F20',
+                            accent: '#4ADE80',
+                            text: '#E2E8F0'
                         }
                     }
                 }
@@ -27,62 +24,48 @@
         };
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #F1ECDE; color: #1C2621; }
-        h1, h2, h3 { font-family: 'Fraunces', serif; }
-        .eyebrow-mono { font-family: 'IBM Plex Mono', monospace; }
-        .cert-frame { position: relative; border: 1px solid #C9BFA0; border-radius: 2rem; }
-        .cert-frame .tick-bl, .cert-frame .tick-br { content: ''; position: absolute; width: 22px; height: 22px; }
-        .cert-frame .tick-bl { bottom: -1px; left: -1px; border-bottom: 2px solid #A9832E; border-left: 2px solid #A9832E; border-bottom-left-radius: 1.5rem; }
-        .cert-frame .tick-br { bottom: -1px; right: -1px; border-bottom: 2px solid #A9832E; border-right: 2px solid #A9832E; border-bottom-right-radius: 1.5rem; }
-        a:focus-visible, button:focus-visible { outline: 2px solid #A9832E; outline-offset: 2px; }
-        .glass-card { background: rgba(231, 224, 200, 0.55); border: 1px solid rgba(28,38,33,0.12); backdrop-filter: blur(18px); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #050906; color: #E2E8F0; }
+        .glass-card { background: rgba(14, 23, 20, 0.75); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(18px); }
         .ad-box { min-height: 180px; }
         .video-card:hover { transform: translateY(-4px); }
         .video-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
     </style>
 </head>
 <body class="antialiased min-h-screen">
-    <nav class="fixed inset-x-0 top-0 z-50 border-b border-rule bg-brand-dark/95 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+    <nav class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-brand-dark/95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between gap-6">
             <a href="news.html" class="flex items-center gap-3">
-                <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
-                    <circle cx="50" cy="50" r="47" fill="none" stroke="#A9832E" stroke-width="2"/>
-                    <circle cx="50" cy="50" r="38" fill="none" stroke="#4B7267" stroke-width="1"/>
-                    <text x="50" y="58" text-anchor="middle" font-family="Fraunces, serif" font-weight="600" font-size="30" fill="#1C2621">T</text>
-                </svg>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <span class="text-base font-black text-brand-dark">T</span>
+                </div>
                 <div>
-                    <p class="eyebrow-mono text-xs uppercase tracking-[0.3em] text-verdigris">TokenHaven</p>
-                    <p class="text-base font-semibold text-ink/90">News Outlet</p>
+                    <p class="text-sm uppercase tracking-[0.35em] text-brand-accent">TokenHaven</p>
+                    <p class="text-base font-semibold text-white">News Outlet</p>
                 </div>
             </a>
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-ink/90">
-                <a href="index.html" class="hover:text-brass transition">Home</a>
-                <a href="pillars.html" class="hover:text-brass transition">Pillars</a>
-                <a href="media-hub.html" class="hover:text-brass transition">Media Hub</a>
-                <a href="shop.html" class="hover:text-brass transition">Shop</a>
-                <a href="privacy.html" class="hover:text-brass transition">Privacy</a>
-                <a href="terms.html" class="hover:text-brass transition">Terms</a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-200">
+                <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+                <a href="pillars.html" class="hover:text-brand-accent transition">Pillars</a>
+                <a href="media-hub.html" class="hover:text-brand-accent transition">Media Hub</a>
+                <a href="shop.html" class="hover:text-brand-accent transition">Shop</a>
+                <a href="privacy.html" class="hover:text-brand-accent transition">Privacy</a>
+                <a href="terms.html" class="hover:text-brand-accent transition">Terms</a>
             </div>
         </div>
     </nav>
     <main class="pt-32 pb-16">
         <div class="max-w-7xl mx-auto px-6 space-y-16">
             <section class="space-y-6">
-                <div class="cert-frame glass-card p-8">
-                    <span class="tick-bl"></span><span class="tick-br"></span>
-                    <div class="flex flex-wrap items-start justify-between gap-4 mb-6 eyebrow-mono text-xs text-verdigris uppercase tracking-widest">
-                        <span>Media &amp; Research Register</span>
-                        <span>Auto&#8209;updating on load</span>
-                    </div>
+                <div class="glass-card rounded-[2rem] border border-white/10 p-8">
                     <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                         <div class="max-w-3xl">
-                            <p class="text-xs uppercase tracking-[0.3em] text-brass font-semibold">All-in-one TokenHaven hub</p>
-                            <h1 class="mt-3 text-4xl font-bold text-ink">News, media, and research in one place</h1>
-                            <p class="mt-4 text-lg leading-8 text-ink/75">Follow the latest cannabis and hemp headlines, browse our media channels, and explore curated NIH research articles without leaving the site.</p>
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">All-in-one TokenHaven hub</p>
+                            <h1 class="mt-3 text-4xl font-bold text-white">News, media, and research in one place</h1>
+                            <p class="mt-4 text-lg leading-8 text-slate-300">Follow the latest cannabis and hemp headlines, browse our media channels, and explore curated NIH research articles without leaving the site.</p>
                         </div>
-                        <div class="rounded-3xl border border-rule bg-card/70 px-5 py-4 text-sm text-ink/75">
-                            <div class="font-semibold text-ink">Included now</div>
+                        <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 px-5 py-4 text-sm text-slate-300">
+                            <div class="font-semibold text-white">Included now</div>
                             <ul class="mt-2 space-y-2">
                                 <li>• Live news headlines</li>
                                 <li>• YouTube, TikTok, and Kick links</li>
@@ -94,13 +77,13 @@
             </section>
 
             <section class="space-y-6">
-                <div class="glass-card rounded-[2rem] border border-rule p-6">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
                         <div>
                             <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Cannabis + Hemp News</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span id="newsFeedTimestamp" class="text-sm text-ink/60">Updated just now</span>
+                            <span id="newsFeedTimestamp" class="text-sm text-slate-400">Updated just now</span>
                             <button id="newsFeedRefresh" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">
                                 Refresh
                                 <i data-lucide="refresh-cw" class="w-4 h-4"></i>
@@ -108,121 +91,40 @@
                         </div>
                     </div>
                     <div id="newsFeedGrid" class="grid gap-4 lg:grid-cols-2">
-                        <div class="rounded-3xl border border-rule bg-card/70 p-6 text-sm text-ink/75">Loading cannabis & hemp headlines...</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="glass-card rounded-[2rem] border border-rule p-6 shadow-xl shadow-black/10">
-                <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-6">
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.3em] text-brass font-semibold">Peer Reviewed Research</p>
-                        <h2 class="mt-3 text-3xl font-bold text-ink">NIH / PubMed articles with cannabis, hemp, or marijuana in the title</h2>
-                        <p class="mt-3 text-ink/75">Curated straight from NIH / PubMed so the science sits next to the news, not buried in a separate tab.</p>
-                    </div>
-                    <div class="rounded-full border border-brass/30 px-4 py-2 text-sm text-ink/75">Auto-updating on load</div>
-                </div>
-                <div id="pubmedList" class="space-y-4"></div>
-            </section>
-
-            <section class="space-y-10">
-                <div class="glass-card rounded-[2rem] border border-rule p-6">
-                    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                        <div>
-                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Media Hub</p>
-                            <h2 class="text-3xl font-bold text-ink">Podcast, streaming, and editorial channels</h2>
-                        </div>
-                        <a href="https://tokenhaven.substack.com" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Visit TokenHaven Substack</a>
-                    </div>
-                    <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                        <article class="rounded-3xl border border-rule bg-card/80 p-5">
-                            <div class="text-sm font-semibold text-ink">HighRants Podcast</div>
-                            <p class="mt-2 text-sm leading-6 text-ink/75">Operational commentary and scientific analysis from the front lines of cannabis and hemp media.</p>
-                            <a href="https://open.spotify.com/show/1GNkMNkas8x9SROFkCxBtB" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-accent">Listen on Spotify</a>
-                        </article>
-                        <article class="rounded-3xl border border-rule bg-card/80 p-5">
-                            <div class="text-sm font-semibold text-ink">YouTube Channel</div>
-                            <p class="mt-2 text-sm leading-6 text-ink/75">Editorial deep dives, regulatory updates, and clinical trend breakdowns.</p>
-                            <a href="https://www.youtube.com/@TokenHaven" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-accent">Watch Channel</a>
-                        </article>
-                        <article class="rounded-3xl border border-rule bg-card/80 p-5">
-                            <div class="text-sm font-semibold text-ink">Kick VODs</div>
-                            <p class="mt-2 text-sm leading-6 text-ink/75">Raw stream logs, live discussion highlights, and event recaps from TokenHaven broadcasts.</p>
-                            <a href="https://kick.com/tokenhaven/videos" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-accent">Review Broadcast VODs</a>
-                        </article>
+                        <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">Loading cannabis & hemp headlines...</div>
                     </div>
                 </div>
             </section>
 
             <section class="space-y-10">
-                <div class="glass-card rounded-[2rem] border border-rule p-6 shadow-xl shadow-black/10">
-                    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                        <div>
-                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Substack</p>
-                            <h2 class="text-3xl font-bold text-ink">Follow TokenHaven on Substack</h2>
-                        </div>
-                        <a href="https://tokenhaven.substack.com" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Visit TokenHaven Substack</a>
-                    </div>
-                    <div id="substackFeed" class="mt-6 grid gap-4 text-sm text-ink/75">
-                        <div class="rounded-3xl border border-rule bg-card/70 p-5">Loading latest Substack posts...</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="space-y-10">
-                <div class="glass-card rounded-[2rem] border border-rule p-6 shadow-xl shadow-black/10">
-                    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                        <div>
-                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Live Stream</p>
-                            <h2 class="text-3xl font-bold text-ink">Top News Story</h2>
-                        </div>
-                    </div>
-                    <div class="mt-8 rounded-[1.75rem] overflow-hidden border border-rule bg-ink aspect-video">
-                        <iframe id="kickLiveFrame" class="w-full h-full" src="https://kick.com/embed/channel/tokenhaven" title="TokenHaven Kick Live Feed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <div class="grid gap-6 lg:grid-cols-[1.55fr_0.85fr]">
-                    <div class="glass-card rounded-[2rem] border border-rule p-6">
-                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">YouTube Player</p>
-                        <div class="rounded-[1.75rem] overflow-hidden border border-rule bg-ink aspect-video">
-                            <iframe id="youtubePlayer" class="w-full h-full" src="https://www.youtube.com/embed?listType=playlist&list=PLO3qZDKc0Wf3jhbXM9pALYIGt1kgbebhQ" title="TokenHaven YouTube Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <p class="mt-4 text-sm text-ink/75">Click a video below to play it directly on this page.</p>
-                    </div>
-                    <div class="glass-card rounded-[2rem] border border-rule p-6">
-                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold mb-4">Newest Videos</p>
-                        <p id="playlistStatus" class="text-sm text-ink/60 mb-4">Loading playlist status...</p>
-                        <div id="newsGrid" class="grid gap-4 max-h-[520px] overflow-y-auto pr-1"></div>
-                    </div>
-                </div>
-
-                <div class="glass-card rounded-[2rem] border border-rule p-6">
+                <div class="glass-card rounded-[2rem] border border-white/10 p-6">
                     <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                         <div>
                             <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">TikTok Shorts</p>
-                            <h2 class="text-3xl font-bold text-ink">Latest TokenHaven Shorts</h2>
+                            <h2 class="text-3xl font-bold text-white">Latest TokenHaven Shorts</h2>
                         </div>
                         <a href="https://www.tiktok.com/@tokenhaven" target="_blank" rel="noreferrer noopener" class="inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-accent/10 px-4 py-2 text-sm font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Open TikTok Profile</a>
                     </div>
                     <div id="tiktokShortsGrid" class="mt-6 grid gap-4"></div>
                 </div>
 
-
             </section>
 
-
+            <section class="glass-card rounded-[2rem] border border-white/10 p-6 shadow-xl shadow-black/10">
+                <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-6">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Shop & Research</p>
+                        <h2 class="mt-3 text-3xl font-bold text-white">NIH / PubMed articles with cannabis, hemp, or marijuana in the title</h2>
+                        <p class="mt-3 text-slate-300">This section keeps the research stream inside the same destination as your news and media content.</p>
+                    </div>
+                    <div class="rounded-full border border-brand-accent/20 px-4 py-2 text-sm text-slate-300">Auto-updating on load</div>
+                </div>
+                <div id="pubmedList" class="space-y-4"></div>
+            </section>
         </div>
     </main>
 
     <script>
-        const API_KEY = 'AIzaSyCIzykQViEPjizTGCBFj9eRnCyE-M9-BNs';
-        const PLAYLIST_ID = 'PLO3qZDKc0Wf3jhbXM9pALYIGt1kgbebhQ';
-        const MAX_RESULTS = 6;
-        const KICK_CLIENT_ID = '01KZ6V27JPWQ2D9Q7D2CZNX727';
-        const KICK_CLIENT_SECRET = 'a7f2fd23a76e6e9fa52ed189d7c237d93003d732bba7885993b877a233734683';
-        const KICK_CHANNEL = 'tokenhaven';
-
         const newsFeedBackupStories = [
             {
                 title: 'Live cannabis news temporarily unavailable',
@@ -241,118 +143,9 @@
             }
         ];
 
-        const playlistStatus = document.getElementById('playlistStatus');
-        const newsGrid = document.getElementById('newsGrid');
         const newsFeedGrid = document.getElementById('newsFeedGrid');
-        const substackFeed = document.getElementById('substackFeed');
         const tiktokShortsGrid = document.getElementById('tiktokShortsGrid');
-        const youtubePlayer = document.getElementById('youtubePlayer');
         const pubmedList = document.getElementById('pubmedList');
-
-        function playVideo(videoId) {
-            if (!youtubePlayer) return;
-            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-            const topOffset = youtubePlayer.getBoundingClientRect().top + window.scrollY - 120;
-            window.scrollTo({ top: topOffset, behavior: 'smooth' });
-        }
-
-        async function loadPlaylist() {
-            if (!API_KEY || API_KEY === 'YOUR_API_KEY_HERE' || !PLAYLIST_ID || PLAYLIST_ID === 'YOUR_PLAYLIST_ID_HERE') {
-                playlistStatus.textContent = 'Replace the placeholder values with your YouTube API key and playlist ID for live video loading.';
-                newsGrid.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-6 text-sm text-ink/75">No API key or playlist ID provided. The embedded playlist will still work if you update the iframe source with your playlist ID.</div>`;
-                return;
-            }
-
-            const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=${MAX_RESULTS}&playlistId=${PLAYLIST_ID}&key=${API_KEY}`;
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    const err = await response.json();
-                    throw new Error(err.error?.message || 'Failed to fetch YouTube playlist.');
-                }
-                const data = await response.json();
-                const items = data.items || [];
-                if (!items.length) {
-                    playlistStatus.textContent = 'No videos were found in the playlist. Please verify your playlist ID.';
-                    return;
-                }
-
-                playlistStatus.textContent = `${items.length} newest videos loaded from your playlist.`;
-                if (youtubePlayer) {
-                    youtubePlayer.src = `https://www.youtube.com/embed/${items[0].snippet.resourceId.videoId}?autoplay=0&rel=0`;
-                }
-
-                const latestItems = items.slice(0, 6);
-
-                newsGrid.innerHTML = latestItems.map(item => {
-                    const videoId = item.snippet.resourceId.videoId;
-                    const title = item.snippet.title;
-                    const description = item.snippet.description || '';
-                    const thumb = item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url || '';
-                    return `
-                        <article class="video-card rounded-3xl border border-rule bg-card/80 overflow-hidden shadow-lg shadow-black/20">
-                            <a href="#" onclick="playVideo('${videoId}'); return false;" class="block">
-                                <img src="${thumb}" alt="${title}" class="h-32 w-full object-cover" />
-                            </a>
-                            <div class="p-3">
-                                <a href="#" onclick="playVideo('${videoId}'); return false;" class="text-sm font-semibold text-ink hover:text-brand-accent transition">${title}</a>
-                                <p class="mt-2 text-xs leading-5 text-ink/60 overflow-hidden" style="max-height:3.6rem;">${description}</p>
-                            </div>
-                        </article>`;
-                }).join('');
-            } catch (error) {
-                playlistStatus.textContent = 'Unable to load playlist data. Check your API key, playlist ID, and browser console for details.';
-                newsGrid.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-6 text-sm text-ink/75">${error.message}</div>`;
-                console.error(error);
-            }
-        }
-
-        async function loadSubstackFeed() {
-            if (!substackFeed) return;
-            const feedUrl = 'https://tokenhaven.substack.com/feed';
-            const apiUrl = `https://r.jina.ai/http://tokenhaven.substack.com/feed`;
-            substackFeed.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-5 text-sm text-ink/75">Loading latest Substack posts...</div>`;
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch Substack posts.');
-                }
-                const text = await response.text();
-                const bodyStart = text.indexOf('Markdown Content:');
-                if (bodyStart === -1) {
-                    throw new Error('Unexpected Substack proxy response.');
-                }
-                const markdown = text.slice(bodyStart + 'Markdown Content:'.length).trim();
-                const links = [];
-                const lines = markdown.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
-                for (let i = 0; i < lines.length; i++) {
-                    const match = lines[i].match(/^### \[\]\(([^)]+)\)$/);
-                    if (match) {
-                        const url = match[1];
-                        let title = url.split('/').pop() || url;
-                        title = decodeURIComponent(title.replace(/-/g, ' '));
-                        title = title.replace(/\b\w/g, c => c.toUpperCase());
-                        links.push({ title, url });
-                    }
-                    if (links.length >= 4) break;
-                }
-                if (!links.length) {
-                    substackFeed.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-5 text-sm text-ink/75">No Substack posts available right now.</div>`;
-                    return;
-                }
-                substackFeed.innerHTML = links.map(item => `
-                    <a href="${item.url}" target="_blank" rel="noreferrer noopener" class="block rounded-3xl border border-rule bg-card/80 p-5 transition hover:bg-card/90">
-                        <div class="text-sm font-semibold text-ink">${item.title}</div>
-                        <div class="mt-2 text-xs text-ink/60">Read the latest Substack post</div>
-                    </a>
-                `).join('');
-            } catch (error) {
-                substackFeed.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-5 text-sm text-ink/75">Unable to load Substack posts. ${error.message}</div>`;
-                console.error(error);
-            }
-        }
-
         function loadTikTokShorts() {
             if (!tiktokShortsGrid) return;
             const shorts = [
@@ -361,16 +154,16 @@
                 { title: 'TokenHaven Short #3', url: 'https://www.tiktok.com/@tokenhaven' }
             ];
             tiktokShortsGrid.innerHTML = shorts.map(short => `
-                <article class="rounded-3xl border border-rule bg-card/80 p-5 transition hover:border-brand-accent/40">
-                    <div class="text-sm font-semibold text-ink">${short.title}</div>
-                    <p class="mt-2 text-xs text-ink/60">Watch the latest TikTok captions and quick cannabis updates.</p>
-                    <a href="${short.url}" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-brand-accent hover:text-ink">Open on TikTok</a>
+                <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5 transition hover:border-brand-accent/40">
+                    <div class="text-sm font-semibold text-white">${short.title}</div>
+                    <p class="mt-2 text-xs text-slate-400">Watch the latest TikTok captions and quick cannabis updates.</p>
+                    <a href="${short.url}" target="_blank" rel="noreferrer noopener" class="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-brand-accent hover:text-white">Open on TikTok</a>
                 </article>`).join('');
         }
 
         async function loadPubMedArticles() {
             if (!pubmedList) return;
-            pubmedList.innerHTML = '<div class="rounded-3xl border border-rule bg-card/70 p-5 text-sm text-ink/75">Loading NIH PubMed research...</div>';
+            pubmedList.innerHTML = '<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">Loading NIH PubMed research...</div>';
 
             try {
                 const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=8&sort=pub_date&term=${encodeURIComponent('("cannabis"[Title] OR "hemp"[Title] OR "marijuana"[Title])')}`;
@@ -396,81 +189,50 @@
                     const journal = article.fulljournalname || 'Journal unavailable';
                     const pubDate = article.pubdate || 'Date unavailable';
                     return `
-                        <article class="rounded-3xl border border-rule bg-card/80 p-5">
+                        <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
                             <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                                 <div>
                                     <p class="mt-2 text-xs uppercase tracking-[0.3em] text-brand-accent">NIH / PubMed</p>
-                                    <h3 class="mt-2 text-lg font-semibold text-ink">${article.title}</h3>
-                                    <p class="mt-2 text-sm text-ink/75">${authors}</p>
-                                    <p class="mt-1 text-sm text-ink/60">${journal} • ${pubDate}</p>
+                                    <h3 class="mt-2 text-lg font-semibold text-white">${article.title}</h3>
+                                    <p class="mt-2 text-sm text-slate-300">${authors}</p>
+                                    <p class="mt-1 text-sm text-slate-400">${journal} • ${pubDate}</p>
                                 </div>
                                 <a href="https://pubmed.ncbi.nlm.nih.gov/${article.uid}/" target="_blank" rel="noreferrer" class="shrink-0 inline-flex items-center justify-center rounded-full border border-brand-accent/20 bg-brand-accent/10 px-3 py-2 text-xs font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Open Article</a>
                             </div>
                         </article>`;
                 }).join('');
             } catch (error) {
-                pubmedList.innerHTML = `<div class="rounded-3xl border border-red-500/30 bg-red-500/10 p-5 text-sm text-red-700">${error.message}</div>`;
+                pubmedList.innerHTML = `<div class="rounded-3xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-red-300">${error.message}</div>`;
             }
         }
 
         function renderNewsFeedItems(items, statusText) {
             if (!newsFeedGrid) return;
             newsFeedGrid.innerHTML = items.map(item => `
-                <article class="glass-card rounded-3xl border border-rule bg-card/80 p-5">
-                    <a href="${item.link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-ink hover:text-brand-accent transition">${item.title}</a>
-                    <p class="mt-3 text-sm leading-6 text-ink/75">${item.description}</p>
+                <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                    <a href="${item.link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${item.title}</a>
+                    <p class="mt-3 text-sm leading-6 text-slate-300">${item.description}</p>
                 </article>`).join('');
             const timestamp = document.getElementById('newsFeedTimestamp');
             if (timestamp) timestamp.textContent = statusText;
         }
 
-        // rss2json is a JSON-native RSS reader built for client-side use, so it
-        // avoids the CORS-proxy 403s that plain XML mirrors like allorigins hit
-        // under load. It's tried first; two XML proxies remain as fallbacks.
-        async function fetchArticlesViaRss2Json(feedUrl) {
-            const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=6`);
-            if (!response.ok) throw new Error(`rss2json returned ${response.status}`);
-            const data = await response.json();
-            if (data.status !== 'ok' || !Array.isArray(data.items) || !data.items.length) {
-                throw new Error('rss2json returned no items');
-            }
-            return data.items.slice(0, 6).map(item => ({
-                title: item.title || 'Untitled news item',
-                link: item.link || '#',
-                description: (item.description || item.content || 'Read the latest cannabis and hemp industry news.')
-                    .replace(/<[^>]*>/g, '').trim().slice(0, 200),
-                author: item.author || 'Industry Feed',
-                published: item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''
-            }));
-        }
-
-        async function fetchArticlesViaXmlProxies(feedUrl) {
-            const apiUrls = [
-                `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`,
-                `https://corsproxy.io/?url=${encodeURIComponent(feedUrl)}`
-            ];
+        async function fetchFeedContent(urls) {
             let lastError;
-            for (const apiUrl of apiUrls) {
+            for (const apiUrl of urls) {
                 try {
                     const response = await fetch(apiUrl);
-                    if (!response.ok) throw new Error(`Proxy returned ${response.status}`);
-                    const xmlText = await response.text();
-                    const parser = new DOMParser();
-                    const xml = parser.parseFromString(xmlText, 'application/xml');
-                    if (xml.querySelector('parsererror')) throw new Error('Unable to parse RSS feed.');
-                    const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
-                    if (!items.length) throw new Error('No items in feed.');
-                    return items.map(item => {
-                        const authorNode = item.querySelector('creator') || item.getElementsByTagNameNS('*', 'creator')[0];
-                        const pubDate = item.querySelector('pubDate')?.textContent;
-                        return {
-                            title: item.querySelector('title')?.textContent || 'Untitled news item',
-                            link: item.querySelector('link')?.textContent || '#',
-                            description: item.querySelector('description')?.textContent || 'Read the latest cannabis and hemp industry news.',
-                            author: authorNode?.textContent || 'Industry Feed',
-                            published: pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''
-                        };
-                    });
+                    if (!response.ok) {
+                        throw new Error(`Proxy returned ${response.status}`);
+                    }
+                    if (apiUrl.includes('api.allorigins.win/get')) {
+                        const data = await response.json();
+                        if (!data.contents) {
+                            throw new Error('AllOrigins returned an empty response.');
+                        }
+                        return data.contents;
+                    }
+                    return await response.text();
                 } catch (error) {
                     lastError = error;
                     console.warn(`News feed proxy failed for ${apiUrl}:`, error);
@@ -482,6 +244,10 @@
         async function loadNewsFeed() {
             if (!newsFeedGrid) return;
             const feedUrl = 'https://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en';
+            const apiUrls = [
+                `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
+                `https://r.jina.ai/http://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en`
+            ];
             const timestamp = document.getElementById('newsFeedTimestamp');
             const refreshButton = document.getElementById('newsFeedRefresh');
 
@@ -492,35 +258,44 @@
                 lucide.createIcons();
             }
 
-            newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-6 text-sm text-ink/60">Loading the latest cannabis and hemp headlines...</div>`;
+            newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-400">Loading the latest cannabis and hemp headlines...</div>`;
             if (timestamp) {
                 timestamp.textContent = 'Updating now…';
             }
 
             try {
-                let articles;
-                try {
-                    articles = await fetchArticlesViaRss2Json(feedUrl);
-                } catch (primaryError) {
-                    console.warn('rss2json failed, falling back to XML proxies:', primaryError);
-                    articles = await fetchArticlesViaXmlProxies(feedUrl);
+                const xmlText = await fetchFeedContent(apiUrls);
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(xmlText, 'application/xml');
+                if (xml.querySelector('parsererror')) {
+                    throw new Error('Unable to parse RSS feed.');
                 }
+                const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
 
-                if (!articles.length) {
-                    newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-rule bg-card/70 p-6 text-sm text-ink/75">No cannabis news headlines were available at the moment.</div>`;
+                if (!items.length) {
+                    newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No cannabis news headlines were available at the moment.</div>`;
                     if (timestamp) timestamp.textContent = 'No recent headlines found';
                     return;
                 }
 
-                newsFeedGrid.innerHTML = articles.map(({ title, link, description, author, published }) => `
-                        <article class="glass-card rounded-3xl border border-rule bg-card/80 p-5">
-                            <a href="${link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-ink hover:text-brass transition">${title}</a>
-                            <p class="mt-3 text-sm leading-6 text-ink/75">${description}</p>
-                            <div class="mt-4 flex items-center justify-between text-xs text-ink/45">
+                newsFeedGrid.innerHTML = items.map(item => {
+                    const title = item.querySelector('title')?.textContent || 'Untitled news item';
+                    const link = item.querySelector('link')?.textContent || '#';
+                    const description = item.querySelector('description')?.textContent || 'Read the latest cannabis and hemp industry news.';
+                    const authorNode = item.querySelector('creator') || item.getElementsByTagName('dc:creator')[0] || item.getElementsByTagNameNS('*', 'creator')[0];
+                    const author = authorNode?.textContent || 'Industry Feed';
+                    const pubDate = item.querySelector('pubDate')?.textContent;
+                    const published = pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+                    return `
+                        <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
+                            <a href="${link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${title}</a>
+                            <p class="mt-3 text-sm leading-6 text-slate-300">${description}</p>
+                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
                                 <span>${author}</span>
                                 <span>${published}</span>
                             </div>
-                        </article>`).join('');
+                        </article>`;
+                }).join('');
 
                 if (timestamp) {
                     const now = new Date();
@@ -529,7 +304,7 @@
             } catch (error) {
                 renderNewsFeedItems(newsFeedBackupStories, 'Showing backup headlines');
                 const message = `Live news feed unavailable. ${error.message}`;
-                newsFeedGrid.insertAdjacentHTML('afterbegin', `<div class="rounded-3xl border border-rule bg-card/70 p-6 text-sm text-ink/75 mb-4">${message}</div>`);
+                newsFeedGrid.insertAdjacentHTML('afterbegin', `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300 mb-4">${message}</div>`);
                 if (timestamp) timestamp.textContent = 'Backup headlines active';
                 console.error(error);
             } finally {
@@ -550,32 +325,30 @@
                 });
             }
 
-            loadPlaylist();
             loadNewsFeed();
-            loadSubstackFeed();
             loadTikTokShorts();
             loadPubMedArticles();
         });
     </script>
-    <footer class="border-t border-rule bg-brand-dark/90 py-10 text-ink/60">
+    <footer class="border-t border-white/10 bg-brand-dark/90 py-10 text-slate-400">
         <div class="max-w-7xl mx-auto px-6 text-center text-sm">
-            <nav class="mb-4 text-sm font-semibold text-ink/75">
+            <nav class="mb-4 text-sm font-semibold text-slate-300">
                 <a href="index.html" class="hover:text-brand-accent transition px-2">Home</a>
-                <span class="text-ink/45">|</span>
+                <span class="text-slate-500">|</span>
                 <a href="pillars.html" class="hover:text-brand-accent transition px-2">Pillars</a>
-                <span class="text-ink/45">|</span>
+                <span class="text-slate-500">|</span>
                 <a href="media-hub.html" class="hover:text-brand-accent transition px-2">Media Hub</a>
-                <span class="text-ink/45">|</span>
+                <span class="text-slate-500">|</span>
                 <a href="news.html" class="text-brand-accent font-semibold transition px-2">News Outlet</a>
-                <span class="text-ink/45">|</span>
+                <span class="text-slate-500">|</span>
                 <a href="shop.html" class="hover:text-brand-accent transition px-2">Shop</a>
-                <span class="text-ink/45">|</span>
+                <span class="text-slate-500">|</span>
                 <a href="privacy.html" class="hover:text-brand-accent transition px-2">Privacy</a>
-                <span class="text-ink/45">|</span>
+                <span class="text-slate-500">|</span>
                 <a href="terms.html" class="hover:text-brand-accent transition px-2">Terms</a>
             </nav>
             <p class="text-sm">TokenHaven News Outlet — automatically sync your playlist with the latest video coverage.</p>
-            <p class="text-xs text-ink/45 mt-3">© 2026 TokenHaven. All rights reserved.</p>
+            <p class="text-xs text-slate-500 mt-3">© 2026 TokenHaven. All rights reserved.</p>
         </div>
     </footer>
     <script>lucide.createIcons();</script>
