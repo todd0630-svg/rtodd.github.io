@@ -108,10 +108,23 @@
 
         function formatPublicationDate(value) {
             if (!value) return 'Publication date unavailable';
-            const normalized = value.replace(/\//g, '-');
+            const rawValue = String(value).trim();
+            const normalized = rawValue.replace(/\//g, '-');
             const date = new Date(normalized.length === 4 ? `${normalized}-01-01` : normalized);
             if (Number.isNaN(date.getTime())) return value;
             return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+        }
+
+        function pubMedDateFromXml(article) {
+            const pubDate = article.querySelector('ArticleDate') || article.querySelector('PubDate');
+            if (!pubDate) return '';
+            const year = pubDate.querySelector('Year')?.textContent?.trim();
+            const month = pubDate.querySelector('Month')?.textContent?.trim();
+            const day = pubDate.querySelector('Day')?.textContent?.trim();
+            if (!year) return '';
+            const monthNames = { jan: 1, january: 1, feb: 2, february: 2, mar: 3, march: 3, apr: 4, april: 4, may: 5, jun: 6, june: 6, jul: 7, july: 7, aug: 8, august: 8, sep: 9, sept: 9, september: 9, oct: 10, october: 10, nov: 11, november: 11, dec: 12, december: 12 };
+            const monthNumber = String(Number(month) || monthNames[month?.toLowerCase()] || 1).padStart(2, '0');
+            return `${year}-${monthNumber}-${day ? day.padStart(2, '0') : '01'}`;
         }
 
         async function loadPubMedArticles() {
@@ -128,30 +141,35 @@
                 const ids = searchData.esearchresult?.idlist || [];
                 if (!ids.length) throw new Error('No NIH articles were returned for the selected keywords.');
 
-                const summaryUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`;
-                const summaryResponse = await fetch(summaryUrl);
-                if (!summaryResponse.ok) throw new Error('PubMed summary request failed.');
-
-                const summaryData = await summaryResponse.json();
-                const articles = Object.values(summaryData.result || {})
-                    .filter(item => item && typeof item === 'object' && item.uid)
-                    .sort((first, second) => new Date(second.sortpubdate || second.pubdate || 0) - new Date(first.sortpubdate || first.pubdate || 0));
+                const fetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`;
+                const fetchResponse = await fetch(fetchUrl);
+                if (!fetchResponse.ok) throw new Error('PubMed article request failed.');
+                const xml = new DOMParser().parseFromString(await fetchResponse.text(), 'application/xml');
+                if (xml.querySelector('parsererror')) throw new Error('PubMed returned invalid article data.');
+                const articles = Array.from(xml.querySelectorAll('PubmedArticle')).map(article => {
+                    const id = article.querySelector('PMID')?.textContent?.trim();
+                    const title = article.querySelector('ArticleTitle')?.textContent?.trim() || 'Untitled article';
+                    const journal = article.querySelector('Journal Title')?.textContent?.trim() || 'Journal unavailable';
+                    const authors = Array.from(article.querySelectorAll('Author')).slice(0, 3).map(author => {
+                        const collective = author.querySelector('CollectiveName')?.textContent?.trim();
+                        return collective || [author.querySelector('ForeName')?.textContent?.trim(), author.querySelector('LastName')?.textContent?.trim()].filter(Boolean).join(' ');
+                    }).filter(Boolean).join(', ') || 'Authors unavailable';
+                    const publicationDate = pubMedDateFromXml(article);
+                    return { uid: id, title, journal, authors, publicationDate };
+                }).filter(article => article.uid && article.publicationDate)
+                    .sort((first, second) => second.publicationDate.localeCompare(first.publicationDate));
                 if (!articles.length) throw new Error('No article details were returned.');
 
                 pubmedList.innerHTML = articles.map(article => {
-                    const authors = Array.isArray(article.authors)
-                        ? article.authors.slice(0, 3).map(author => author.name).join(', ')
-                        : 'Authors unavailable';
-                    const journal = article.fulljournalname || 'Journal unavailable';
-                    const pubDate = formatPublicationDate(article.sortpubdate || article.pubdate);
+                    const pubDate = formatPublicationDate(article.publicationDate);
                     return `
                         <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
                             <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                                 <div>
                                     <p class="mt-2 text-xs uppercase tracking-[0.3em] text-brand-accent">NIH / PubMed</p>
                                     <h3 class="mt-2 text-lg font-semibold text-white">${article.title}</h3>
-                                    <p class="mt-2 text-sm text-slate-300">${authors}</p>
-                                    <p class="mt-1 text-sm text-slate-400">${journal} • Published ${pubDate}</p>
+                                    <p class="mt-2 text-sm text-slate-300">${article.authors}</p>
+                                    <p class="mt-1 text-sm text-slate-400">${article.journal} • Published ${pubDate}</p>
                                 </div>
                                 <a href="https://pubmed.ncbi.nlm.nih.gov/${article.uid}/" target="_blank" rel="noreferrer" class="shrink-0 inline-flex items-center justify-center rounded-full border border-brand-accent/20 bg-brand-accent/10 px-3 py-2 text-xs font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Open Article</a>
                             </div>
@@ -189,30 +207,46 @@
                     const feedUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
                     return [
                         `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
-                        `https://r.jina.ai/http://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`
+                        `https://r.jina.ai/http://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`,
+                        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`
                     ];
                 });
                 const responses = await Promise.allSettled(proxyFeeds.map(async apiUrl => {
-                    const response = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
+                    const response = await fetch(apiUrl);
                     if (!response.ok) throw new Error(`Feed proxy returned ${response.status}`);
                     if (apiUrl.includes('allorigins.win')) {
                         const data = await response.json();
                         if (!data.contents) throw new Error('Feed proxy returned no content.');
-                        return data.contents;
+                        return { format: 'xml', content: data.contents };
                     }
-                    return response.text();
+                    if (apiUrl.includes('rss2json.com')) return { format: 'json', content: await response.json() };
+                    return { format: 'xml', content: await response.text() };
                 }));
                 const parser = new DOMParser();
                 const items = responses.flatMap(result => {
                     if (result.status !== 'fulfilled') return [];
-                    const xml = parser.parseFromString(result.value, 'application/xml');
-                    return xml.querySelector('parsererror') ? [] : Array.from(xml.querySelectorAll('item'));
+                    if (result.value.format === 'json') {
+                        return (result.value.content.items || []).map(item => ({
+                            title: item.title,
+                            link: item.link,
+                            description: item.description,
+                            source: item.author || result.value.content.feed?.title || 'Industry News',
+                            published: item.pubDate
+                        }));
+                    }
+                    const xml = parser.parseFromString(result.value.content, 'application/xml');
+                    return xml.querySelector('parsererror') ? [] : Array.from(xml.querySelectorAll('item')).map(item => ({
+                        title: item.querySelector('title')?.textContent?.trim() || 'Untitled news item',
+                        link: item.querySelector('link')?.textContent?.trim() || item.querySelector('guid')?.textContent?.trim() || '#',
+                        description: item.querySelector('description')?.textContent || '',
+                        source: item.querySelector('source')?.textContent?.trim() || 'Industry News',
+                        published: item.querySelector('pubDate')?.textContent || ''
+                    }));
                 });
                 const uniqueItems = [...new Map(items.map(item => {
-                    const link = item.querySelector('link')?.textContent?.trim() || item.querySelector('guid')?.textContent?.trim();
-                    return [link || item.querySelector('title')?.textContent, item];
+                    return [item.link || item.title, item];
                 })).values()]
-                    .sort((first, second) => new Date(second.querySelector('pubDate')?.textContent || 0) - new Date(first.querySelector('pubDate')?.textContent || 0))
+                    .sort((first, second) => new Date(second.published || 0) - new Date(first.published || 0))
                     .slice(0, 12);
 
                 if (!uniqueItems.length) {
@@ -220,12 +254,12 @@
                 }
                 if (uniqueItems.length) {
                     newsFeedGrid.innerHTML = uniqueItems.map(item => {
-                    const title = item.querySelector('title')?.textContent?.trim() || 'Untitled news item';
-                    const link = item.querySelector('link')?.textContent?.trim() || '#';
-                    const rawDescription = item.querySelector('description')?.textContent || 'Read the latest cannabis, hemp, and psychedelic news.';
+                    const title = item.title || 'Untitled news item';
+                    const link = item.link || '#';
+                    const rawDescription = item.description || 'Read the latest cannabis, hemp, and psychedelic news.';
                     const description = rawDescription.replace(/<[^>]*>/g, '').trim();
-                    const source = item.querySelector('source')?.textContent?.trim() || 'Industry News';
-                    const published = formatPublicationDate(item.querySelector('pubDate')?.textContent);
+                    const source = item.source || 'Industry News';
+                    const published = formatPublicationDate(item.published);
                     return `
                         <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
                             <a href="${link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${title}</a>
