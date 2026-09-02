@@ -63,15 +63,7 @@
                         <div class="max-w-3xl">
                             <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">All-in-one TokenHaven hub</p>
                             <h1 class="mt-3 text-4xl font-bold text-white">News, media, and research in one place</h1>
-                            <p class="mt-4 text-lg leading-8 text-slate-300">Follow the latest cannabis and hemp headlines, browse our media channels, and explore curated NIH research articles without leaving the site.</p>
-                        </div>
-                        <div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 px-5 py-4 text-sm text-slate-300">
-                            <div class="font-semibold text-white">Included now</div>
-                            <ul class="mt-2 space-y-2">
-                                <li>• Live news headlines</li>
-                                <li>• YouTube, TikTok, and Kick links</li>
-                                <li>• NIH / PubMed research articles</li>
-                            </ul>
+                            <p class="mt-4 text-lg leading-8 text-slate-300">Follow the latest cannabis and hemp headlines and explore curated peer-reviewed research without leaving the site.</p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +73,7 @@
                 <div class="glass-card rounded-[2rem] border border-white/10 p-6">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
                         <div>
-                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Cannabis + Hemp News</p>
+                            <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Cannabis, Hemp + Psychedelic News</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <span id="newsFeedTimestamp" class="text-sm text-slate-400">Updated just now</span>
@@ -100,9 +92,8 @@
             <section class="glass-card rounded-[2rem] border border-white/10 p-6 shadow-xl shadow-black/10">
                 <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-6">
                     <div>
-                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Shop & Research</p>
-                        <h2 class="mt-3 text-3xl font-bold text-white">NIH / PubMed articles with cannabis, hemp, or marijuana in the title</h2>
-                        <p class="mt-3 text-slate-300">This section keeps the research stream inside the same destination as your news and media content.</p>
+                        <p class="text-xs uppercase tracking-[0.3em] text-brand-accent font-semibold">Latest published Peer Reviewed Research</p>
+                        <h2 class="mt-3 text-3xl font-bold text-white">Latest published Peer Reviewed Research</h2>
                     </div>
                     <div class="rounded-full border border-brand-accent/20 px-4 py-2 text-sm text-slate-300">Auto-updating on load</div>
                 </div>
@@ -112,32 +103,24 @@
     </main>
 
     <script>
-        const newsFeedBackupStories = [
-            {
-                title: 'Live cannabis news temporarily unavailable',
-                link: 'https://tokenhaven.substack.com',
-                description: 'Visit TokenHaven Substack for the latest cannabis and hemp market coverage until the live feed returns.'
-            },
-            {
-                title: 'Explore hemp business commentary on Substack',
-                link: 'https://tokenhaven.substack.com',
-                description: 'Stay connected with TokenHaven analysis while the RSS proxy reconnects.'
-            },
-            {
-                title: 'Check our latest videos for cannabis updates',
-                link: 'https://www.youtube.com/playlist?list=PLO3qZDKc0Wf3jhbXM9pALYIGt1kgbebhQ',
-                description: 'Our YouTube playlist keeps you informed when the news feed is unreliable.'
-            }
-        ];
-
         const newsFeedGrid = document.getElementById('newsFeedGrid');
         const pubmedList = document.getElementById('pubmedList');
+
+        function formatPublicationDate(value) {
+            if (!value) return 'Publication date unavailable';
+            const normalized = value.replace(/\//g, '-');
+            const date = new Date(normalized.length === 4 ? `${normalized}-01-01` : normalized);
+            if (Number.isNaN(date.getTime())) return value;
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+        }
+
         async function loadPubMedArticles() {
             if (!pubmedList) return;
             pubmedList.innerHTML = '<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">Loading NIH PubMed research...</div>';
 
             try {
-                const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=8&sort=pub_date&term=${encodeURIComponent('("cannabis"[Title] OR "hemp"[Title] OR "marijuana"[Title])')}`;
+                const searchTerm = '(cannabis OR marijuana OR hemp OR psilocybin OR psychedelic OR psychedelics OR CBD OR THC) AND ("1900/01/01"[Date - Publication] : "3000"[Date - Publication])';
+                const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=12&sort=pub+date&datetype=pdat&term=${encodeURIComponent(searchTerm)}`;
                 const searchResponse = await fetch(searchUrl);
                 if (!searchResponse.ok) throw new Error('PubMed search request failed.');
 
@@ -150,7 +133,9 @@
                 if (!summaryResponse.ok) throw new Error('PubMed summary request failed.');
 
                 const summaryData = await summaryResponse.json();
-                const articles = Object.values(summaryData.result || {}).filter(item => item && typeof item === 'object' && item.uid);
+                const articles = Object.values(summaryData.result || {})
+                    .filter(item => item && typeof item === 'object' && item.uid)
+                    .sort((first, second) => new Date(second.sortpubdate || second.pubdate || 0) - new Date(first.sortpubdate || first.pubdate || 0));
                 if (!articles.length) throw new Error('No article details were returned.');
 
                 pubmedList.innerHTML = articles.map(article => {
@@ -158,7 +143,7 @@
                         ? article.authors.slice(0, 3).map(author => author.name).join(', ')
                         : 'Authors unavailable';
                     const journal = article.fulljournalname || 'Journal unavailable';
-                    const pubDate = article.pubdate || 'Date unavailable';
+                    const pubDate = formatPublicationDate(article.sortpubdate || article.pubdate);
                     return `
                         <article class="rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
                             <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -166,7 +151,7 @@
                                     <p class="mt-2 text-xs uppercase tracking-[0.3em] text-brand-accent">NIH / PubMed</p>
                                     <h3 class="mt-2 text-lg font-semibold text-white">${article.title}</h3>
                                     <p class="mt-2 text-sm text-slate-300">${authors}</p>
-                                    <p class="mt-1 text-sm text-slate-400">${journal} • ${pubDate}</p>
+                                    <p class="mt-1 text-sm text-slate-400">${journal} • Published ${pubDate}</p>
                                 </div>
                                 <a href="https://pubmed.ncbi.nlm.nih.gov/${article.uid}/" target="_blank" rel="noreferrer" class="shrink-0 inline-flex items-center justify-center rounded-full border border-brand-accent/20 bg-brand-accent/10 px-3 py-2 text-xs font-semibold text-brand-accent hover:bg-brand-accent/20 transition">Open Article</a>
                             </div>
@@ -177,47 +162,12 @@
             }
         }
 
-        function renderNewsFeedItems(items, statusText) {
-            if (!newsFeedGrid) return;
-            newsFeedGrid.innerHTML = items.map(item => `
-                <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
-                    <a href="${item.link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${item.title}</a>
-                    <p class="mt-3 text-sm leading-6 text-slate-300">${item.description}</p>
-                </article>`).join('');
-            const timestamp = document.getElementById('newsFeedTimestamp');
-            if (timestamp) timestamp.textContent = statusText;
-        }
-
-        async function fetchFeedContent(urls) {
-            let lastError;
-            for (const apiUrl of urls) {
-                try {
-                    const response = await fetch(apiUrl);
-                    if (!response.ok) {
-                        throw new Error(`Proxy returned ${response.status}`);
-                    }
-                    if (apiUrl.includes('api.allorigins.win/get')) {
-                        const data = await response.json();
-                        if (!data.contents) {
-                            throw new Error('AllOrigins returned an empty response.');
-                        }
-                        return data.contents;
-                    }
-                    return await response.text();
-                } catch (error) {
-                    lastError = error;
-                    console.warn(`News feed proxy failed for ${apiUrl}:`, error);
-                }
-            }
-            throw lastError || new Error('Unable to fetch feed from any proxy.');
-        }
-
         async function loadNewsFeed() {
             if (!newsFeedGrid) return;
-            const feedUrl = 'https://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en';
-            const apiUrls = [
-                `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
-                `https://r.jina.ai/http://news.google.com/rss/search?q=cannabis+hemp&hl=en-US&gl=US&ceid=US:en`
+            const queries = [
+                'cannabis OR marijuana OR hemp OR CBD OR THC',
+                'psilocybin OR psychedelic OR psychedelics OR "plant medicine"',
+                'medical cannabis OR cannabis legalization OR cannabis research'
             ];
             const timestamp = document.getElementById('newsFeedTimestamp');
             const refreshButton = document.getElementById('newsFeedRefresh');
@@ -229,54 +179,68 @@
                 lucide.createIcons();
             }
 
-            newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-400">Loading the latest cannabis and hemp headlines...</div>`;
+            newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-400">Loading the latest cannabis, hemp, and psychedelic headlines...</div>`;
             if (timestamp) {
                 timestamp.textContent = 'Updating now…';
             }
 
             try {
-                const xmlText = await fetchFeedContent(apiUrls);
+                const proxyFeeds = queries.flatMap(query => {
+                    const feedUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+                    return [
+                        `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
+                        `https://r.jina.ai/http://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`
+                    ];
+                });
+                const responses = await Promise.allSettled(proxyFeeds.map(async apiUrl => {
+                    const response = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
+                    if (!response.ok) throw new Error(`Feed proxy returned ${response.status}`);
+                    if (apiUrl.includes('allorigins.win')) {
+                        const data = await response.json();
+                        if (!data.contents) throw new Error('Feed proxy returned no content.');
+                        return data.contents;
+                    }
+                    return response.text();
+                }));
                 const parser = new DOMParser();
-                const xml = parser.parseFromString(xmlText, 'application/xml');
-                if (xml.querySelector('parsererror')) {
-                    throw new Error('Unable to parse RSS feed.');
-                }
-                const items = Array.from(xml.querySelectorAll('item')).slice(0, 6);
+                const items = responses.flatMap(result => {
+                    if (result.status !== 'fulfilled') return [];
+                    const xml = parser.parseFromString(result.value, 'application/xml');
+                    return xml.querySelector('parsererror') ? [] : Array.from(xml.querySelectorAll('item'));
+                });
+                const uniqueItems = [...new Map(items.map(item => {
+                    const link = item.querySelector('link')?.textContent?.trim() || item.querySelector('guid')?.textContent?.trim();
+                    return [link || item.querySelector('title')?.textContent, item];
+                })).values()]
+                    .sort((first, second) => new Date(second.querySelector('pubDate')?.textContent || 0) - new Date(first.querySelector('pubDate')?.textContent || 0))
+                    .slice(0, 12);
 
-                if (!items.length) {
-                    newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No cannabis news headlines were available at the moment.</div>`;
-                    if (timestamp) timestamp.textContent = 'No recent headlines found';
-                    return;
+                if (!uniqueItems.length) {
+                    throw new Error('No current headlines were returned by the news sources.');
                 }
-
-                newsFeedGrid.innerHTML = items.map(item => {
-                    const title = item.querySelector('title')?.textContent || 'Untitled news item';
-                    const link = item.querySelector('link')?.textContent || '#';
-                    const description = item.querySelector('description')?.textContent || 'Read the latest cannabis and hemp industry news.';
-                    const authorNode = item.querySelector('creator') || item.getElementsByTagName('dc:creator')[0] || item.getElementsByTagNameNS('*', 'creator')[0];
-                    const author = authorNode?.textContent || 'Industry Feed';
-                    const pubDate = item.querySelector('pubDate')?.textContent;
-                    const published = pubDate ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+                if (uniqueItems.length) {
+                    newsFeedGrid.innerHTML = uniqueItems.map(item => {
+                    const title = item.querySelector('title')?.textContent?.trim() || 'Untitled news item';
+                    const link = item.querySelector('link')?.textContent?.trim() || '#';
+                    const rawDescription = item.querySelector('description')?.textContent || 'Read the latest cannabis, hemp, and psychedelic news.';
+                    const description = rawDescription.replace(/<[^>]*>/g, '').trim();
+                    const source = item.querySelector('source')?.textContent?.trim() || 'Industry News';
+                    const published = formatPublicationDate(item.querySelector('pubDate')?.textContent);
                     return `
                         <article class="glass-card rounded-3xl border border-white/10 bg-brand-charcoal/90 p-5">
                             <a href="${link}" target="_blank" rel="noreferrer noopener" class="text-lg font-semibold text-white hover:text-brand-accent transition">${title}</a>
                             <p class="mt-3 text-sm leading-6 text-slate-300">${description}</p>
-                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500">
-                                <span>${author}</span>
-                                <span>${published}</span>
-                            </div>
+                            <div class="mt-4 flex items-center justify-between text-xs text-slate-500"><span>${source}</span><span>Published ${published}</span></div>
                         </article>`;
-                }).join('');
-
-                if (timestamp) {
-                    const now = new Date();
-                    timestamp.textContent = `Updated ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+                    }).join('');
+                    if (timestamp) timestamp.textContent = `Updated ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
+                } else {
+                    newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No current headlines were returned by the news sources.</div>`;
+                    if (timestamp) timestamp.textContent = 'No recent headlines found';
                 }
             } catch (error) {
-                renderNewsFeedItems(newsFeedBackupStories, 'Showing backup headlines');
-                const message = `Live news feed unavailable. ${error.message}`;
-                newsFeedGrid.insertAdjacentHTML('afterbegin', `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300 mb-4">${message}</div>`);
-                if (timestamp) timestamp.textContent = 'Backup headlines active';
+                newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-red-500/20 bg-red-500/10 p-6 text-sm text-red-300">Live news feed unavailable. ${error.message}</div>`;
+                if (timestamp) timestamp.textContent = 'Feed unavailable';
                 console.error(error);
             } finally {
                 if (refreshButton) {
@@ -317,7 +281,7 @@
                 <span class="text-slate-500">|</span>
                 <a href="terms.html" class="hover:text-brand-accent transition px-2">Terms</a>
             </nav>
-            <p class="text-sm">TokenHaven News Outlet — automatically sync your playlist with the latest video coverage.</p>
+            <p class="text-sm">TokenHaven News Outlet — current headlines and peer-reviewed research.</p>
             <p class="text-xs text-slate-500 mt-3">© 2026 TokenHaven. All rights reserved.</p>
         </div>
     </footer>
