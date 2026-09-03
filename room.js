@@ -316,14 +316,17 @@ export class CyTubeRoom {
       this.drawSegment(previous, next, color, size);
       this.currentStroke.push({ ...next, color, size });
     });
-    this.canvas.addEventListener('pointerup', () => {
+    const finishStroke = () => {
       if (!drawing) return;
       drawing = false;
       if (this.currentStroke.length < 2 || !this.channel) return;
       const stroke = { id: crypto.randomUUID(), owner: this.username, points: this.currentStroke };
       this.strokeHistory.push(stroke);
       this.channel.send({ type: 'broadcast', event: 'canvas_stroke', payload: stroke });
-    });
+    };
+    this.canvas.addEventListener('pointerup', finishStroke);
+    this.canvas.addEventListener('pointercancel', finishStroke);
+    window.addEventListener('pointerup', finishStroke);
     document.getElementById('btn-undo')?.addEventListener('click', () => {
       const lastStroke = [...this.strokeHistory].reverse().find(stroke => stroke.owner === this.username);
       if (!lastStroke) return;
