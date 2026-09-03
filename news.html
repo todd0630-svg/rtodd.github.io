@@ -251,7 +251,7 @@
                 // which is why the feed used to fail intermittently.
                 let uniqueItems = [];
                 try {
-                    const functionResponse = await fetchWithTimeout('https://zkarexhmqozyekwpgsug.supabase.co/functions/v1/news-feed?apikey=sb_publishable_CGnWqiqvGRw6RECLHeo2LQ_MEmISGUB');
+                    const functionResponse = await fetchWithTimeout(`https://zkarexhmqozyekwpgsug.supabase.co/functions/v1/news-feed?apikey=sb_publishable_CGnWqiqvGRw6RECLHeo2LQ_MEmISGUB&t=${Date.now()}`);
                     if (!functionResponse.ok) throw new Error(`News function returned ${functionResponse.status}`);
                     const functionData = await functionResponse.json();
                     if (functionData.error) throw new Error(functionData.error);
@@ -301,7 +301,12 @@
                             published: item.querySelector('pubDate')?.textContent || ''
                         }));
                     });
+                    const fourWeeksAgo = Date.now() - 28 * 24 * 60 * 60 * 1000;
                     uniqueItems = [...new Map(items.map(item => [item.link || item.title, item])).values()]
+                        .filter(item => {
+                            const publishedTime = new Date(item.published || 0).getTime();
+                            return Number.isFinite(publishedTime) && publishedTime >= fourWeeksAgo;
+                        })
                         .sort((first, second) => new Date(second.published || 0) - new Date(first.published || 0))
                         .slice(0, 12);
                 }
