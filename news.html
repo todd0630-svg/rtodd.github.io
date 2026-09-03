@@ -137,6 +137,36 @@
             return `${year}-${monthNumber}-${day ? day.padStart(2, '0') : '01'}`;
         }
 
+        async function loadPubMedArticlesDirect() {
+            const today = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
+            const searchTerm = '(cannabis[Title] OR hemp[Title] OR THC[Title] OR psychedelic[Title] OR psychedelics[Title] OR tryptamine[Title] OR tryptamines[Title] OR psilocin[Title] OR psilocybin[Title]) AND ("1900/01/01"[Date - Publication] : "' + today + '"[Date - Publication])';
+            const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=12&sort=pub+date&datetype=pdat&term=${encodeURIComponent(searchTerm)}`;
+            const searchResponse = await fetch(searchUrl);
+            if (!searchResponse.ok) throw new Error('PubMed search request failed.');
+
+            const searchData = await searchResponse.json();
+            const ids = searchData.esearchresult?.idlist || [];
+            if (!ids.length) throw new Error('No NIH articles were returned for the selected keywords.');
+
+            const fetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`;
+            const fetchResponse = await fetch(fetchUrl);
+            if (!fetchResponse.ok) throw new Error('PubMed article request failed.');
+            const xml = new DOMParser().parseFromString(await fetchResponse.text(), 'application/xml');
+            if (xml.querySelector('parsererror')) throw new Error('PubMed returned invalid article data.');
+            return Array.from(xml.querySelectorAll('PubmedArticle')).map(article => {
+                const id = article.querySelector('PMID')?.textContent?.trim();
+                const title = article.querySelector('ArticleTitle')?.textContent?.trim() || 'Untitled article';
+                const journal = article.querySelector('Journal Title')?.textContent?.trim() || 'Journal unavailable';
+                const authors = Array.from(article.querySelectorAll('Author')).slice(0, 3).map(author => {
+                    const collective = author.querySelector('CollectiveName')?.textContent?.trim();
+                    return collective || [author.querySelector('ForeName')?.textContent?.trim(), author.querySelector('LastName')?.textContent?.trim()].filter(Boolean).join(' ');
+                }).filter(Boolean).join(', ') || 'Authors unavailable';
+                const publicationDate = pubMedDateFromXml(article);
+                return { uid: id, title, journal, authors, publicationDate };
+            }).filter(article => article.uid && article.publicationDate)
+                .sort((first, second) => second.publicationDate.localeCompare(first.publicationDate));
+        }
+
         async function loadPubMedArticles() {
             if (!pubmedList) return;
             const refreshButton = document.getElementById('pubmedRefresh');
@@ -149,33 +179,20 @@
             pubmedList.innerHTML = '<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-5 text-sm text-slate-300">Loading NIH PubMed research...</div>';
 
             try {
-                const today = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
-                const searchTerm = '(cannabis[Title/Abstract] OR marijuana[Title/Abstract] OR hemp[Title/Abstract] OR psilocybin[Title/Abstract] OR psychedelic[Title/Abstract] OR psychedelics[Title/Abstract] OR CBD[Title/Abstract] OR THC[Title/Abstract]) AND ("1900/01/01"[Date - Publication] : "' + today + '"[Date - Publication])';
-                const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&retmax=12&sort=pub+date&datetype=pdat&term=${encodeURIComponent(searchTerm)}`;
-                const searchResponse = await fetch(searchUrl);
-                if (!searchResponse.ok) throw new Error('PubMed search request failed.');
+                // Primary source: a Supabase Edge Function running the same esearch/efetch
+                // lookup server-side, so the browser only ever makes one reliable request.
+                let articles = [];
+                try {
+                    const functionResponse = await fetchWithTimeout(`https://zkarexhmqozyekwpgsug.supabase.co/functions/v1/pubmed-feed?apikey=sb_publishable_CGnWqiqvGRw6RECLHeo2LQ_MEmISGUB&t=${Date.now()}`);
+                    if (!functionResponse.ok) throw new Error(`PubMed function returned ${functionResponse.status}`);
+                    const functionData = await functionResponse.json();
+                    if (functionData.error) throw new Error(functionData.error);
+                    articles = functionData.articles || [];
+                } catch (functionError) {
+                    console.warn('PubMed function unavailable, falling back to direct NCBI calls:', functionError);
+                }
 
-                const searchData = await searchResponse.json();
-                const ids = searchData.esearchresult?.idlist || [];
-                if (!ids.length) throw new Error('No NIH articles were returned for the selected keywords.');
-
-                const fetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`;
-                const fetchResponse = await fetch(fetchUrl);
-                if (!fetchResponse.ok) throw new Error('PubMed article request failed.');
-                const xml = new DOMParser().parseFromString(await fetchResponse.text(), 'application/xml');
-                if (xml.querySelector('parsererror')) throw new Error('PubMed returned invalid article data.');
-                const articles = Array.from(xml.querySelectorAll('PubmedArticle')).map(article => {
-                    const id = article.querySelector('PMID')?.textContent?.trim();
-                    const title = article.querySelector('ArticleTitle')?.textContent?.trim() || 'Untitled article';
-                    const journal = article.querySelector('Journal Title')?.textContent?.trim() || 'Journal unavailable';
-                    const authors = Array.from(article.querySelectorAll('Author')).slice(0, 3).map(author => {
-                        const collective = author.querySelector('CollectiveName')?.textContent?.trim();
-                        return collective || [author.querySelector('ForeName')?.textContent?.trim(), author.querySelector('LastName')?.textContent?.trim()].filter(Boolean).join(' ');
-                    }).filter(Boolean).join(', ') || 'Authors unavailable';
-                    const publicationDate = pubMedDateFromXml(article);
-                    return { uid: id, title, journal, authors, publicationDate };
-                }).filter(article => article.uid && article.publicationDate)
-                    .sort((first, second) => second.publicationDate.localeCompare(first.publicationDate));
+                if (!articles.length) articles = await loadPubMedArticlesDirect();
                 if (!articles.length) throw new Error('No article details were returned.');
 
                 pubmedList.innerHTML = articles.map(article => {
@@ -228,61 +245,75 @@
             }
 
             try {
-                const proxyFeeds = queries.flatMap(query => {
-                    const feedUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
-                    return [
-                        `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
-                        `https://r.jina.ai/http://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`,
-                        `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`
-                    ];
-                });
-                const responses = await Promise.allSettled(proxyFeeds.map(async apiUrl => {
-                    const response = await fetchWithTimeout(apiUrl);
-                    if (!response.ok) throw new Error(`Feed proxy returned ${response.status}`);
-                    if (apiUrl.includes('allorigins.win')) {
-                        const data = await response.json();
-                        if (!data.contents) throw new Error('Feed proxy returned no content.');
-                        return { format: 'xml', content: data.contents };
-                    }
-                    if (apiUrl.includes('rss2json.com')) return { format: 'json', content: await response.json() };
-                    return { format: 'xml', content: await response.text() };
-                }));
-                const parser = new DOMParser();
-                const items = responses.flatMap(result => {
-                    if (result.status !== 'fulfilled') return [];
-                    if (result.value.format === 'json') {
-                        return (result.value.content.items || []).map(item => ({
-                            title: item.title,
-                            link: item.link,
-                            description: item.description,
-                            source: item.author || result.value.content.feed?.title || 'Industry News',
-                            published: item.pubDate
-                        }));
-                    }
-                    const xml = parser.parseFromString(result.value.content, 'application/xml');
-                    return xml.querySelector('parsererror') ? [] : Array.from(xml.querySelectorAll('item')).map(item => ({
-                        title: item.querySelector('title')?.textContent?.trim() || 'Untitled news item',
-                        link: item.querySelector('link')?.textContent?.trim() || item.querySelector('guid')?.textContent?.trim() || '#',
-                        description: item.querySelector('description')?.textContent || '',
-                        source: item.querySelector('source')?.textContent?.trim() || 'Industry News',
-                        published: item.querySelector('pubDate')?.textContent || ''
+                // Primary source: a Supabase Edge Function fetching direct publisher RSS feeds
+                // server-side. Google News RSS and third-party CORS proxies are excluded here
+                // because they run on shared datacenter IPs that Google throttles with 429s,
+                // which is why the feed used to fail intermittently.
+                let uniqueItems = [];
+                try {
+                    const functionResponse = await fetchWithTimeout('https://zkarexhmqozyekwpgsug.supabase.co/functions/v1/news-feed?apikey=sb_publishable_CGnWqiqvGRw6RECLHeo2LQ_MEmISGUB');
+                    if (!functionResponse.ok) throw new Error(`News function returned ${functionResponse.status}`);
+                    const functionData = await functionResponse.json();
+                    if (functionData.error) throw new Error(functionData.error);
+                    uniqueItems = functionData.items || [];
+                } catch (functionError) {
+                    console.warn('News function unavailable, falling back to proxies:', functionError);
+                }
+
+                if (!uniqueItems.length) {
+                    const proxyFeeds = queries.flatMap(query => {
+                        const feedUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+                        return [
+                            `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
+                            `https://r.jina.ai/http://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`,
+                            `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`
+                        ];
+                    });
+                    const responses = await Promise.allSettled(proxyFeeds.map(async apiUrl => {
+                        const response = await fetchWithTimeout(apiUrl);
+                        if (!response.ok) throw new Error(`Feed proxy returned ${response.status}`);
+                        if (apiUrl.includes('allorigins.win')) {
+                            const data = await response.json();
+                            if (!data.contents) throw new Error('Feed proxy returned no content.');
+                            return { format: 'xml', content: data.contents };
+                        }
+                        if (apiUrl.includes('rss2json.com')) return { format: 'json', content: await response.json() };
+                        return { format: 'xml', content: await response.text() };
                     }));
-                });
-                const uniqueItems = [...new Map(items.map(item => {
-                    return [item.link || item.title, item];
-                })).values()]
-                    .sort((first, second) => new Date(second.published || 0) - new Date(first.published || 0))
-                    .slice(0, 12);
+                    const parser = new DOMParser();
+                    const items = responses.flatMap(result => {
+                        if (result.status !== 'fulfilled') return [];
+                        if (result.value.format === 'json') {
+                            return (result.value.content.items || []).map(item => ({
+                                title: item.title,
+                                link: item.link,
+                                description: item.description,
+                                source: item.author || result.value.content.feed?.title || 'Industry News',
+                                published: item.pubDate
+                            }));
+                        }
+                        const xml = parser.parseFromString(result.value.content, 'application/xml');
+                        return xml.querySelector('parsererror') ? [] : Array.from(xml.querySelectorAll('item')).map(item => ({
+                            title: item.querySelector('title')?.textContent?.trim() || 'Untitled news item',
+                            link: item.querySelector('link')?.textContent?.trim() || item.querySelector('guid')?.textContent?.trim() || '#',
+                            description: item.querySelector('description')?.textContent || '',
+                            source: item.querySelector('source')?.textContent?.trim() || 'Industry News',
+                            published: item.querySelector('pubDate')?.textContent || ''
+                        }));
+                    });
+                    uniqueItems = [...new Map(items.map(item => [item.link || item.title, item])).values()]
+                        .sort((first, second) => new Date(second.published || 0) - new Date(first.published || 0))
+                        .slice(0, 12);
+                }
 
                 if (!uniqueItems.length) {
                     throw new Error('No current headlines were returned by the news sources.');
                 }
-                if (uniqueItems.length) {
-                    newsFeedGrid.innerHTML = uniqueItems.map(item => {
+                newsFeedGrid.innerHTML = uniqueItems.map(item => {
                     const title = item.title || 'Untitled news item';
                     const link = item.link || '#';
                     const rawDescription = item.description || 'Read the latest cannabis, hemp, and psychedelic news.';
-                    const description = rawDescription.replace(/<[^>]*>/g, '').trim();
+                    const description = rawDescription.replace(/<[^>]*>/g, '').replace(/\s*The post .+ appeared first on .+\.\s*$/i, '').trim();
                     const source = item.source || 'Industry News';
                     const published = formatPublicationDate(item.published);
                     return `
@@ -291,12 +322,8 @@
                             <p class="mt-3 text-sm leading-6 text-slate-300">${description}</p>
                             <div class="mt-4 flex items-center justify-between text-xs text-slate-500"><span>${source}</span><span>Published ${published}</span></div>
                         </article>`;
-                    }).join('');
-                    if (timestamp) timestamp.textContent = `Updated ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
-                } else {
-                    newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-white/10 bg-brand-charcoal/80 p-6 text-sm text-slate-300">No current headlines were returned by the news sources.</div>`;
-                    if (timestamp) timestamp.textContent = 'No recent headlines found';
-                }
+                }).join('');
+                if (timestamp) timestamp.textContent = `Updated ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
             } catch (error) {
                 newsFeedGrid.innerHTML = `<div class="rounded-3xl border border-red-500/20 bg-red-500/10 p-6 text-sm text-red-300">Live news feed unavailable. ${error.message}</div>`;
                 if (timestamp) timestamp.textContent = 'Feed unavailable';
