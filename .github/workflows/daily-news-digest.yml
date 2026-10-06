@@ -1,0 +1,26 @@
+name: Daily news digest to LinkedIn
+
+on:
+  schedule:
+    - cron: "0 15 * * *" # 8:00 AM Pacific (7:00 AM in winter)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview only (true) or really post (false)"
+        default: "true"
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Post digest
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: node scripts/post-daily-digest.mjs
