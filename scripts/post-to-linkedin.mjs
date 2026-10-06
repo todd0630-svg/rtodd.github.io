@@ -41,6 +41,14 @@ function parseFrontMatter(text) {
 // LinkedIn "little text" format reserves these characters.
 const escapeText = (s) => s.replace(/[\\|{}@[\]()<>#*_~]/g, (c) => `\\${c}`);
 
+// LinkedIn retires old API versions; last month's (YYYYMM) is always active.
+function previousMonth() {
+  const d = new Date();
+  d.setUTCDate(1);
+  d.setUTCMonth(d.getUTCMonth() - 1);
+  return `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+}
+
 async function post(file) {
   const { meta } = parseFrontMatter(readFileSync(file, "utf8"));
   if (!meta.title) throw new Error(`${file}: title is required`);
@@ -66,7 +74,7 @@ async function post(file) {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      "LinkedIn-Version": "202504",
+      "LinkedIn-Version": process.env.LINKEDIN_VERSION || previousMonth(),
       "X-Restli-Protocol-Version": "2.0.0",
     },
     body: JSON.stringify(payload),

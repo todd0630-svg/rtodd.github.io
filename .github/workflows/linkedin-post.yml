@@ -6,6 +6,10 @@ on:
     paths:
       - "articles/**.md"
   workflow_dispatch:
+    inputs:
+      file:
+        description: "Article to post, e.g. articles/test-post.md"
+        required: true
 
 jobs:
   post:
@@ -24,4 +28,4 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
-        run: node scripts/post-to-linkedin.mjs
+        run: node scripts/post-to-linkedin.mjs ${{ github.event.inputs.file }}
