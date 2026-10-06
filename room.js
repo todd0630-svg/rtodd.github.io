@@ -15,10 +15,6 @@ export class CyTubeRoom {
     this.chatLog = document.getElementById(chatLogId);
     this.chatForm = document.getElementById(chatFormId);
     this.chatInput = document.getElementById(chatInputId);
-    this.canvas = document.getElementById('paint-canvas');
-    this.ctx = this.canvas?.getContext('2d');
-    this.strokeHistory = [];
-    this.currentStroke = [];
     this.queueItems = [];
     this.queueVotes = new Map();
     this.messageTimes = [];
@@ -28,7 +24,6 @@ export class CyTubeRoom {
     this.bindChat();
     this.bindVoting();
     this.bindQueue();
-    this.initCanvas();
     this.connect();
     this.createPlayer();
   }
@@ -69,14 +64,6 @@ export class CyTubeRoom {
       .on('broadcast', { event: 'queue_vote' }, ({ payload }) => {
         this.queueVotes.set(payload.itemId, (this.queueVotes.get(payload.itemId) || 0) + 1);
         this.renderQueue();
-      })
-      .on('broadcast', { event: 'canvas_stroke' }, ({ payload }) => {
-        this.strokeHistory.push(payload);
-        this.redrawCanvas();
-      })
-      .on('broadcast', { event: 'canvas_clear' }, () => {
-        this.strokeHistory = [];
-        this.clearCanvas();
       })
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, ({ new: message }) => {
         if (message.room_id === this.roomId) this.renderMessage(message.user_name, message.content, message.created_at);
@@ -291,82 +278,4 @@ export class CyTubeRoom {
     log.prepend(vote);
   }
 
-  initCanvas() {
-    if (!this.canvas || !this.ctx) return;
-    this.clearCanvas();
-    let drawing = false;
-    const pointFromEvent = event => {
-      const rect = this.canvas.getBoundingClientRect();
-      return {
-        x: (event.clientX - rect.left) * this.canvas.width / rect.width,
-        y: (event.clientY - rect.top) * this.canvas.height / rect.height
-      };
-    };
-    this.canvas.addEventListener('pointerdown', event => {
-      drawing = true;
-      this.currentStroke = [pointFromEvent(event)];
-      this.canvas.setPointerCapture(event.pointerId);
-    });
-    this.canvas.addEventListener('pointermove', event => {
-      if (!drawing) return;
-      const next = pointFromEvent(event);
-      const previous = this.currentStroke.at(-1);
-      const color = document.getElementById('brush-color')?.value || '#E08A63';
-      const size = Number(document.getElementById('brush-size')?.value || 5);
-      this.drawSegment(previous, next, color, size);
-      this.currentStroke.push({ ...next, color, size });
-    });
-    const finishStroke = () => {
-      if (!drawing) return;
-      drawing = false;
-      if (this.currentStroke.length < 2 || !this.channel) return;
-      const stroke = { id: crypto.randomUUID(), owner: this.username, points: this.currentStroke };
-      this.strokeHistory.push(stroke);
-      this.channel.send({ type: 'broadcast', event: 'canvas_stroke', payload: stroke });
-    };
-    this.canvas.addEventListener('pointerup', finishStroke);
-    this.canvas.addEventListener('pointercancel', finishStroke);
-    window.addEventListener('pointerup', finishStroke);
-    document.getElementById('btn-undo')?.addEventListener('click', () => {
-      const lastStroke = [...this.strokeHistory].reverse().find(stroke => stroke.owner === this.username);
-      if (!lastStroke) return;
-      this.strokeHistory = this.strokeHistory.filter(stroke => stroke.id !== lastStroke.id);
-      this.redrawCanvas();
-    });
-    document.getElementById('btn-clear-canvas')?.addEventListener('click', () => {
-      this.strokeHistory = [];
-      this.clearCanvas();
-      this.channel?.send({ type: 'broadcast', event: 'canvas_clear' });
-    });
-    document.getElementById('btn-download-canvas')?.addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = 'tokenhaven-community-canvas.png';
-      link.href = this.canvas.toDataURL('image/png');
-      link.click();
-    });
-  }
-
-  drawSegment(previous, next, color, size) {
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = color;
-    this.ctx.lineWidth = size;
-    this.ctx.lineCap = 'round';
-    this.ctx.lineJoin = 'round';
-    this.ctx.moveTo(previous.x, previous.y);
-    this.ctx.lineTo(next.x, next.y);
-    this.ctx.stroke();
-  }
-
-  clearCanvas() {
-    if (!this.ctx || !this.canvas) return;
-    this.ctx.fillStyle = '#ffffff';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  redrawCanvas() {
-    this.clearCanvas();
-    this.strokeHistory.forEach(stroke => stroke.points.slice(1).forEach((point, index) => {
-      this.drawSegment(stroke.points[index], point, point.color, point.size);
-    }));
-  }
 }
