@@ -1,4 +1,5 @@
 // Posts a daily digest of the newest cannabis/hemp/psychedelic headlines (same feed as news.html).
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 // Env: LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN, SITE_URL, DRY_RUN, MAX_ITEMS, WINDOW_HOURS
 const {
   LINKEDIN_ACCESS_TOKEN: token,
@@ -39,6 +40,13 @@ const decode = (s) =>
     .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
     .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'");
 
+// Papers already posted, tracked in the repo so each paper appears only once.
+const STATE_FILE = "data/posted-research.json";
+let postedIds = [];
+try {
+  postedIds = JSON.parse(readFileSync(STATE_FILE, "utf8"));
+} catch {}
+
 // Latest peer-reviewed research is best-effort: a PubMed failure must not block the news digest.
 let research = [];
 try {
@@ -46,7 +54,7 @@ try {
   if (pm.ok) {
     const { articles = [] } = await pm.json();
     research = articles
-      .filter((a) => a.title)
+      .filter((a) => a.title && !postedIds.includes(String(a.uid)))
       .sort((a, b) => String(b.publicationDate).localeCompare(String(a.publicationDate)))
       .slice(0, 3);
   }
@@ -117,3 +125,9 @@ if (!res.ok) {
   process.exit(1);
 }
 console.log(`Posted digest of ${fresh.length} headlines -> ${res.headers.get("x-restli-id")}`);
+// Record only the papers that actually made it into the posted text.
+const included = research.slice(0, r).map((a) => String(a.uid));
+if (included.length) {
+  mkdirSync("data", { recursive: true });
+  writeFileSync(STATE_FILE, JSON.stringify([...postedIds, ...included].slice(-300), null, 2) + "\n");
+}
