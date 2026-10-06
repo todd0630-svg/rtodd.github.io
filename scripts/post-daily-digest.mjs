@@ -68,19 +68,33 @@ if (!fresh.length) {
 }
 
 const date = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "America/Los_Angeles" });
-const newsLines = fresh.map((i) => `• ${decode(i.title).trim()} (${(i.source || "Industry News").trim()})`);
+// LinkedIn posts are plain text, so "bold" uses Unicode bold letters.
+const bold = (t) =>
+  [...t].map((c) => {
+    const k = c.codePointAt(0);
+    if (k >= 65 && k <= 90) return String.fromCodePoint(0x1d5d4 + k - 65);
+    if (k >= 97 && k <= 122) return String.fromCodePoint(0x1d5ee + k - 97);
+    return c;
+  }).join("");
+// URLs must not be backslash-escaped, so reserved characters are percent-encoded instead.
+const safeUrl = (u) => u.replace(/[\\|{}@[\]()<>#*_~]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"));
+
+const newsLines = fresh.map((i) => {
+  const line = `\u2022 ${escapeText(decode(i.title).trim())} \\(${escapeText((i.source || "Industry News").trim())}\\)`;
+  return /^https?:\/\//.test(i.link || "") ? `${line}\n${safeUrl(i.link)}` : line;
+});
 const researchLines = research.map(
-  (a) => `• ${decode(a.title).trim().replace(/\.$/, "")} - ${decode(a.journal || "").trim()} (${a.publicationDate})\nhttps://pubmed.ncbi.nlm.nih.gov/${a.uid}/`,
+  (a) => `\u2022 ${escapeText(decode(a.title).trim().replace(/\.$/, ""))} - ${escapeText(decode(a.journal || "").trim())} \\(${a.publicationDate}\\)\nhttps://pubmed.ncbi.nlm.nih.gov/${a.uid}/`,
 );
 
 function build(n, r) {
-  const parts = [`Cannabis, Hemp + Psychedelic News Roundup - ${date}`];
-  if (n) parts.push(`Top Headlines\n\n${newsLines.slice(0, n).join("\n\n")}`);
-  if (r) parts.push(`Latest Published Peer Reviewed Research\n\n${researchLines.slice(0, r).join("\n\n")}`);
+  const parts = [escapeText(`Cannabis, Hemp + Psychedelic News Roundup - ${date}`)];
+  if (n) parts.push(`${bold("Top Headlines")}\n\n${newsLines.slice(0, n).join("\n\n")}`);
+  if (r) parts.push(`${bold("Latest Published Peer Reviewed Research")}\n\n${researchLines.slice(0, r).join("\n\n")}`);
   parts.push("Full coverage on TokenHaven.");
-  return escapeText(parts.join("\n\n")) + "\n\n#Cannabis #Hemp #Psychedelics";
+  parts.push("Sponsored by Dank Bank\nhttps://www.dank-bank.com/");
+  return parts.join("\n\n") + "\n\n#Cannabis #Hemp #Psychedelics";
 }
-
 // LinkedIn caps commentary at 3000 characters; drop items instead of truncating mid-text.
 let n = newsLines.length;
 let r = researchLines.length;
